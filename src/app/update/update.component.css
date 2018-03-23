@@ -1,0 +1,10 @@
+
+[contentEditable=true]:empty:before{
+    content:attr(data-text)
+  }
+  .editable {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  outline: none;
+  line-height: 20px; 
+  } 

@@ -1,0 +1,32 @@
+    <div class="login-container" fxLayoutAlign="center center">
+       <mat-card class="mat-design">
+         <form #signupForm="ngForm" (ngSubmit)="login()">
+          <div  fxLayout="row"  fxLayoutAlign="center center">
+             <h1 class="heder-style">Login</h1>
+           </div>
+
+           <div fxLayout="row">
+             <mat-form-field fxFlex.gt-xs="300px">
+               <input matInput placeholder="Email" name="userEmail" [formControl]="emailControl" [errorStateMatcher]="match"  [(ngModel)]="model.userEmail">
+               <mat-error *ngIf="emailControl.hasError('required')">Email Address is required</mat-error>
+               <mat-error *ngIf="emailControl.hasError('pattern') && !emailControl.hasError('required') ">Enter Valid Email</mat-error>
+             </mat-form-field>
+           </div>
+
+            <div fxLayout="row">
+             <mat-form-field fxFlex fxFlex.gt-xs="300px">
+               <input matInput placeholder="Enter your password" [type]="hide ? 'text' : 'password'" name="passWord" [formControl]="passwordControl" [errorStateMatcher]="match" [(ngModel)]="model.passWord">
+               <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+               <mat-error *ngIf="passwordControl.hasError('required')">Password is required</mat-error>
+               <mat-error *ngIf="passwordControl.hasError('pattern') && !passwordControl.hasError('required') ">Password not valid</mat-error>
+             </mat-form-field>
+           </div>
+
+           <div class="button-row" fxLayoutAlign="center center">
+             <button type="submit"  mat-raised-button color="primary" [disabled]="emailControl.invalid || passwordControl.invalid">Submit</button>
+             <a href="http://localhost:4200/register">New user</a>
+            </div>
+
+         </form>
+        </mat-card>
+       </div>

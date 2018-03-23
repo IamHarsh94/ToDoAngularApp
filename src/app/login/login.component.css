@@ -1,0 +1,11 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+}
+.mat-design{
+  background-color: silver;
+  border-style: outset;
+}
+.heder-style{
+   color: blue;
+}

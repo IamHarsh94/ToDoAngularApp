@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutGap="12px">
+    <div id="update-title" contenteditable='true' data-text='Title' class="editable line-height"name="title" (input)="data.title=$event.target.innerHTML"></div>
+
+    <div id="update-description" contenteditable='true' data-text='Take a note..' class="editable line-height" name="description" (input)="data.description=$event.target.innerHTML"></div>
+
+    <div>
+        <button mat-button style="margin-left: 88%;" (click)="updateNote()">Done</button>
+    </div>
+
+</div>

@@ -1,0 +1,22 @@
+
+[contentEditable=true]:empty:before{
+  content:attr(data-text)
+}
+.editable {
+word-wrap: break-word;
+white-space: pre-wrap;
+outline: none;
+line-height: 20px; 
+} 
+.example-card {
+  max-width: 400px;
+}
+.full-width {
+  width: 100%;
+}
+.line-height{
+  line-height: 20px;
+}
+.class-container{
+  margin-top: 25px;
+}

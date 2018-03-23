@@ -1,0 +1,90 @@
+
+<div style="height: 100vh;margin-top: -8px;">
+  <div   fxLayout="row" >
+    <mat-toolbar  style="background : #fb0">
+     
+        <div>
+          <button mat-icon-button (click)="sidenav.toggle()" href="#">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+
+        <div>
+          <span>My ToDo App</span>
+        </div>
+
+        <div>
+          <button mat-icon-button (click)="refresh()">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+
+        <div >
+          <mat-toolbar>
+            <button mat-icon-button [matMenuTriggerFor]="matMenu">
+             <mat-icon >account_circle</mat-icon>
+            </button>
+          </mat-toolbar>
+        </div>
+      
+        <div>
+          <mat-menu #matMenu="matMenu">
+
+            <div  fxLayout="column">
+               <div>Photo</div> 
+                <div>usermail</div>
+                <div>
+                    <button mat-icon-button (click)="signOut()">sign out</button>
+                </div>
+            </div>   
+          </mat-menu>
+        </div>
+    </mat-toolbar>
+  </div>
+    <mat-sidenav-container fxFlexFill class="example-container">
+      <mat-sidenav mode="side" #sidenav opened fxLayout="column">
+        <div fxLayout="column">
+          <ul>
+            <li>
+              <a href="#" mat-button>delete</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 2</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 3</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 4</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 5</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 6</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 7</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 8</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 9</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 10</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 11</a>
+            </li>
+            <li>
+              <a href="#" mat-button>Menu Item 12</a>
+            </li>
+          </ul>
+        </div>
+      </mat-sidenav>
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-container>
+  </div>

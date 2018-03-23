@@ -1,0 +1,61 @@
+<div class="registration-container" fxLayoutAlign="center center">
+    <mat-card  #registration class="mat-design">
+      <form  (ngSubmit)="register()">
+      <div fxLayout="row" fxLayoutAlign="center center">
+          <h1 class="heder-style">Sign In</h1>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field fxFlex fxFlex.gt-xs="300px">
+          <input matInput placeholder="Fullname" name="fullName" [formControl]="FullnameControl" [(ngModel)]="model.fullName" required>
+          <mat-error *ngIf="FullnameControl.hasError('required')">Name is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field fxFlex fxFlex.gt-xs="300px">
+          <input matInput placeholder="Email" name="userEmail" [formControl]="emailControl" [errorStateMatcher]="match"  [(ngModel)]="model.userEmail">
+          <mat-error *ngIf="emailControl.hasError('required')">Email Address is required</mat-error>
+          <mat-error *ngIf="emailControl.hasError('pattern') && !emailControl.hasError('required') ">Enter Valid Email</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field fxFlex fxFlex.gt-xs="300px">
+          <input matInput placeholder="Enter your password" [type]="hide ? 'text' : 'password'" name="passWord"
+          [formControl]="passwordControl" [errorStateMatcher]="match" [(ngModel)]="model.passWord">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="passwordControl.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="passwordControl.hasError('pattern') && !passwordControl.hasError('required') ">Password not valid</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field fxFlex fxFlex.gt-xs="300px">
+          <input matInput placeholder="Confirm password" [type]="hide ? 'text' : 'password'" name="confirmpassword"
+          [formControl]="ConfirmPasswordControl" [errorStateMatcher]="match" [(ngModel)]="model.confirmpassword">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="ConfirmPasswordControl.hasError('required')">Confirm password is required</mat-error>
+          <mat-error *ngIf="ConfirmPasswordControl.hasError('pattern') && !ConfirmPasswordControl.hasError('required') ">Password not valid</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field fxFlex fxFlex.gt-xs="300px">
+          <input matInput placeholder="Address" name="address" [formControl]="AddressControl" [(ngModel)]="model.address" required>
+          <mat-error *ngIf="passwordControl.hasError('required')">Address required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field fxFlex fxFlex.gt-xs="300px">
+          <input matInput placeholder="Contact" type="number" maxlength="10" name="mobileNum" [(ngModel)]="model.mobileNum" required>
+        </mat-form-field>
+      </div>
+
+      <div class="button-row" fxLayoutAlign="center center">
+        <button type="submit" mat-raised-button color="primary" [disabled]="emailControl.invalid || passwordControl.invalid">register</button>
+      </div>
+    </form>
+  </mat-card >
+</div>
