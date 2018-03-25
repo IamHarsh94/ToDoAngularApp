@@ -23,40 +23,31 @@ export class HttputilService {
     })
   };
 
-
   //--------------  POST SERVICE ------------------------
   postService(url,obj):Observable<any>{
 
     return this.http.post<any>(url, obj,{ observe: 'response' });
   }
 
-
   //--------------  PUT SERVICE ------------------------
   
-  createNote(path, note): Observable<any>{
-    this.noteId = note.nodeId;
+  putService(path, note): Observable<any>{
     this.urlpath = this.note_url.concat(path);
     return this.http.put(this.urlpath, note, this.httpOptions);
   }
-  // createNote(path, note): Observable<any>{
-  //   this.noteId = note.nodeId;
-  //   this.urlpath = this.note_url.concat(path);
-  //   return this.http.put(this.urlpath+'/'+this.noteId, note, this.httpOptions);
-  // }
 
 
-
-  //--------------  GET SERVICE ------------------------
-
-  getAllNotes(path): Observable<NoteResponse[]>{
+  //--------------  GET SERVICE -----------------------------
+  
+  getService(path): Observable<NoteResponse[]>{
     this.urlpath = this.note_url.concat(path);
-    return this.http.get<NoteResponse[]>( this.urlpath,this.httpOptions);
+    return this.http.get<NoteResponse[]>(this.urlpath,this.httpOptions);
   }
  
   //--------------  DELETE SERVICE ------------------------
 
-   deleteNote(path,noteId):Observable<any>{
+   deleteService(path,noteId):Observable<any>{
      this.urlpath = this.note_url.concat(path);
-       return  this.http.delete<any>( this.urlpath+'/'+noteId,this.httpOptions);
-  }  
+      return  this.http.delete<any>( this.urlpath+'/'+noteId,this.httpOptions);
+   }
 }

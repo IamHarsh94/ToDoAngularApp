@@ -9,8 +9,6 @@ export class HomeComponent{
 
   constructor(  private router : Router) { }
   
-  
-  
 
   refresh(): void {
     location.reload();

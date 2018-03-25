@@ -3,5 +3,8 @@ export class NoteResponse{
     message : string;
     title   : string;
     description : string;
+    status : number;
+    color:string;
+
 }
   

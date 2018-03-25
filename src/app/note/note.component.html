@@ -22,65 +22,138 @@
 
 </div>
 
-
+ <!--************pin div****************** -->
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-   
-    <mat-card class="note-card" *ngFor="let note of notes" fxFlex="230px">
-      <div  (click)="openDialog(note)">
-      <mat-card-header>
-        <mat-card-title>{{note.title}}</mat-card-title>
-      </mat-card-header>
+    <div *ngFor="let note of notes">
+      <div *ngIf="note.status===3" class="mat-div">
+        
+        <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
+          <div style="margin-left: 90%;">
+            <img src="{{unpinSvg}}" (click)="unPinNote(note)">
+          </div>
+          <div (click)="openDialog(note)">
+            <mat-card-header>
+              <mat-card-title>{{note.title}}</mat-card-title>
+            </mat-card-header>
 
-      <mat-card-content>
-        {{note.description}}
-      </mat-card-content>
-    </div>
-      <div fxLayout="row">
-        <div>
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button type="submit" mat-menu-item (click)="deleteNote(note.nodeId)">
-              <mat-icon>delete</mat-icon>
-              <span>delete note</span>
-            </button>
-            <button mat-menu-item disabled>
-              <mat-icon>voicemail</mat-icon>
-              <span>Check voicemail</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>notifications_off</mat-icon>
-              <span>Disable alerts</span>
-            </button>
-          </mat-menu>
-        </div>
+            <mat-card-content>
+              {{note.description}}
+            </mat-card-content>
+          </div>
+
+          <div fxLayout="row">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu">
+                <button type="submit" mat-menu-item (click)="moveToTrash(note)">
+                  <mat-icon>delete</mat-icon>
+                  <span>delete note</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>voicemail</mat-icon>
+                  <span>Check voicemail</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Disable alerts</span>
+                </button>
+              </mat-menu>
+
+            </div>
+
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="color">
+                <mat-icon>color_lens</mat-icon>
+              </button>
+              <mat-menu #color="matMenu">
+                <div>
+                  <a *ngFor="let color of colors">
+                    <img src="{{color.path}}" (click)="note.color=color.color;updateNote(note)">
+                  </a>
+                </div>
+
+              </mat-menu>
+            </div>
+            
+            <div>
+              <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="archiveNote(note)">
+            </div>
+          </div>
+        </mat-card>
       </div>
-    </mat-card>
-
+    </div>
   </div>
 </div>
 
-<!-- </div> -->
 
-<!-- <mat-card class="" *ngFor="">
+ <!--************note div****************** -->
+<div class="class-container" fxLayoutAlign="center center">
+  <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
+    <div *ngFor="let note of notes">
+      <div *ngIf="note.status===0" class="mat-div">
+        
 
-  <mat-card-header>
-    <mat-card-title>{{note.title}}</mat-card-title>
-  </mat-card-header>
+        <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
+            <div style="margin-left: 90%;">
+                <img src="{{pinSvg}}"  (click)="pinNote(note)">
+            </div>
+          <div (click)="openDialog(note)">
+            <mat-card-header>
+              <mat-card-title>{{note.title}}</mat-card-title>
+            </mat-card-header>
 
-  <mat-card-content>
-    {{note.description}}
-  </mat-card-content>
-  
-</mat-card> -->
+            <mat-card-content>
+              {{note.description}}
+            </mat-card-content>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
 
-<!-- 
-<div class="IZ65Hb-hYUzqc">
-  <div class="IZ65Hb-HiaYvf-neVct">
+              <mat-menu #menu="matMenu">
+                <button type="submit" mat-menu-item (click)="moveToTrash(note)">
+                  <mat-icon>delete</mat-icon>
+                  <span>delete note</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>voicemail</mat-icon>
+                  <span>Check voicemail</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Disable alerts</span>
+                </button>
+              </mat-menu>
 
+            </div>
+
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="color">
+                <mat-icon>color_lens</mat-icon>
+              </button>
+              <mat-menu #color="matMenu">
+                <div>
+                  <a *ngFor="let col of colors">
+                    <img src="{{color.path}}" (click)="note.color=col.color; updateNote(note)">
+                  </a>
+                </div>
+
+              </mat-menu>
+            </div>
+            
+            <div>
+              <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="archiveNote(note)">
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
   </div>
-  <input class="HiaYvf-zf3vf-L6cTce-YPqjbf" type="file" multiple="">
-</div> -->
 
+</div>

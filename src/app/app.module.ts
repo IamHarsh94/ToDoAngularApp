@@ -7,7 +7,7 @@ import {
   MatButtonModule, MatFormFieldModule,
   MatInputModule, MatToolbarModule, MatSidenavModule,
   MatIconModule, MatCardModule, MatSelectModule, MatMenuModule,
-  MatDialogModule
+  MatDialogModule,MatGridListModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './registration/registration.component';
@@ -21,6 +21,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { NoteComponent } from './note/note.component';
 import { AuthGuard,LoggedInAuthGuard } from './auth/index';
 import { UpdateComponent } from './update/update.component';
+import { TrashComponent } from './trash/trash.component';
+import { ArchiveComponent } from './archive/archive.component';
 // import{MatFormsModule,MatFormFieldModule,MatInputModule} from '@angular/material';
 // import{FormsModule} from '@angular/forms';
 // import{MatAnimationsModule} from '@angular/platform-browser/animations';
@@ -33,7 +35,9 @@ export const appRoutes: Routes = [
   canActivate: [ AuthGuard ],
    children: [
       { path: '', redirectTo: 'note', pathMatch: 'full'},
-      { path: 'note', component: NoteComponent}
+      { path: 'note', component: NoteComponent},
+      {path:'trash',component:TrashComponent},
+      {path:'archive',component:ArchiveComponent}
     ],
 
   },
@@ -48,8 +52,9 @@ export const appRoutes: Routes = [
     HomeComponent,
     WelcomeComponent,
     NoteComponent,
-    UpdateComponent
-
+    UpdateComponent,
+    TrashComponent,
+    ArchiveComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +74,8 @@ export const appRoutes: Routes = [
     ClickOutsideModule,
     MatSelectModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
 
   ],
   entryComponents:[UpdateComponent],

@@ -1,0 +1,34 @@
+
+
+<div class="class-container" fxLayoutAlign="center center">
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
+      <div *ngFor="let note of notes" >
+        <div *ngIf="note.status===2" class="mat-div">
+          <!-- [style.background]="" -->
+          <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
+              <div style="margin-left: 90%;">
+                  <img src="{{pinSvg}}"  (click)="pinNote(note)">
+              </div>
+            <div (click)="openDialog(note)">
+              <!-- <mat-card-header> -->
+              <div>{{note.title}}</div>
+              <!-- </mat-card-header> -->
+  
+              <div>
+                {{note.description}}
+              </div>
+            </div>
+            <div fxLayout="row">
+              
+              <div>
+                <img style="margin-top: 10px;height: 20px;" src="{{unArchiveImg}}" (click)="unArchiveNote(note)">
+              </div>
+            </div>
+          </mat-card>
+  
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
