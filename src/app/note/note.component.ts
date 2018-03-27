@@ -16,6 +16,7 @@ export class NoteComponent implements OnInit {
 
   model: any = {};
   status:any={};
+  today:Date;
   notes: NoteResponse[];
   trashImg = '/assets/icon/archive.svg';
   pinSvg = '/assets/icon/pin.svg';
@@ -30,7 +31,6 @@ export class NoteComponent implements OnInit {
       console.log('get all notes check here:', res);
     });
   }
-
   /**purpose*/
   openDialog(note) {
 
@@ -59,54 +59,23 @@ export class NoteComponent implements OnInit {
 
   };
 
-  /**purpose*/
-  moveToTrash(note): void {
-    console.log("move trash note", note);
-    note.status=1;
-    this.commonService.putService('updateNote', note).subscribe(response => {
-      console.log("deleteNote  response", response);
-      this.refreshNote();
-    });
-  };
-
-  archiveNote(note): void {
-    console.log("move archive note", note);
-    note.status = 2;
+  updateStatusNote(note,status): void {
+    console.log("move archive note", note,status);
+    note.status = status;
     this.commonService.putService('updateNote', note).subscribe(response => {
       console.log("Archive  response", response);
       this.refreshNote();
     });
   };
 
-  pinNote(note): void {
-    console.log("move archive note", note);
-    note.status = 3;
+  reminderSave(note){
+   this.today =new Date();
+   note.reminder= this.today;
+   console.log(this.today);
     this.commonService.putService('updateNote', note).subscribe(response => {
-      console.log("pin note response", response);
+      console.log("Archive  response", response);
       this.refreshNote();
     });
-  };
-
-  unPinNote(note): void {
-    console.log("move archive note", note);
-    note.status = 0;
-    this.commonService.putService('updateNote', note).subscribe(response => {
-      console.log("pin note response", response);
-      this.refreshNote();
-    });
-  };
-  
-  updateNote(note) {
-    console.log("yes got the data", note);
-    this.commonService.putService('updateNote', note)
-      .subscribe(response => {
-        console.log("Note update with color", response);
-      });
-  }
-
-  reminderSave(note,remider){
-    console.log(note);
-    console.log(remider);
   }
 
 
@@ -142,7 +111,5 @@ export class NoteComponent implements OnInit {
     path: '/assets/icon/brown.png'
   }
   ];
-
-
 
 }

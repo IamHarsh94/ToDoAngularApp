@@ -30,7 +30,7 @@
 
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;">
-            <img src="{{unpinSvg}}" (click)="unPinNote(note)">
+            <img src="{{unpinSvg}}" (click)="updateStatusNote(note,0)">
           </div>
           <div (click)="openDialog(note)">
             <mat-card-header>
@@ -49,7 +49,7 @@
               </button>
 
               <mat-menu #menu="matMenu">
-                <button {type="submit" mat-menu-item (click)="moveToTrash(note)">
+                <button type="submit" mat-menu-item (click)="updateStatusNote(note,1)">
                   <mat-icon>delete</mat-icon>
                   <span>delete note</span>
                 </button>
@@ -72,7 +72,7 @@
               <mat-menu #color="matMenu">
                 <div>
                   <a *ngFor="let color of colors">
-                    <img src="{{color.path}}" (click)="note.color=color.color;updateNote(note)">
+                    <img src="{{color.path}}" (click)="note.color=color.color;updateStatusNote(note,note.status)">
                   </a>
                 </div>
 
@@ -80,7 +80,7 @@
             </div>
 
             <div>
-              <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="archiveNote(note)">
+              <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="updateStatusNote(note,2)">
             </div>
           </div>
         </mat-card>
@@ -90,7 +90,7 @@
 </div>
 
 
-<!--************note div****************** -->
+<!--************note div******************-->
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
     <div *ngFor="let note of notes">
@@ -99,7 +99,7 @@
 
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;">
-            <img src="{{pinSvg}}" (click)="pinNote(note)">
+            <img src="{{pinSvg}}" (click)="updateStatusNote(note,3)">
           </div>
           <div (click)="openDialog(note)">
             <mat-card-header>
@@ -119,47 +119,47 @@
               </button>
 
               <mat-menu #reminder="matMenu">
-                
+
                 <b> Reminder:</b>
 
-                <button type="submit" mat-menu-item>
+                <button type="submit" mat-menu-item  (click)="reminderSave(note)">
                   <span>Later today</span>
                   <span>8:00PM</span>
                 </button>
-                
+
                 <button type="submit" mat-menu-item>
                   <span>Tomorrow</span>
                   <span>8:00AM</span>
                 </button>
-                
+
                 <button type="submit" mat-menu-item>
                   <span>Next week</span>
                   <span>Mon, 8:00Am</span>
                 </button>
 
                 <button type="submit" mat-menu-item [matMenuTriggerFor]="calender">
-                    <span>Pick date & time</span>
+                  <span>Pick date & time</span>
                 </button>
                 <mat-menu #calender="matMenu">
-                    <mat-form-field>
-                      <input  matInput [matDatepicker]="picker" placeholder="Choose a date">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
                 </mat-menu>
-                    
-                 
-            </mat-menu>
-            
+
+
+              </mat-menu>
+
             </div>
-  
+
             <div>
               <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
               </button>
 
               <mat-menu #menu="matMenu">
-                <button type="submit" mat-menu-item (click)="moveToTrash(note)">
+                <button type="submit" mat-menu-item (click)="updateStatusNote(note,1)">
                   <mat-icon>delete</mat-icon>
                   <span>delete note</span>
                 </button>
@@ -191,7 +191,7 @@
 
 
             <div>
-              <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="archiveNote(note)">
+              <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="updateStatusNote(note,2)">
             </div>
           </div>
         </mat-card>

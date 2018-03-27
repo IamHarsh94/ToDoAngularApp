@@ -5,6 +5,6 @@ export class NoteResponse{
     description : string;
     status : number;
     color:string;
-
+    reminder:Date;
 }
   

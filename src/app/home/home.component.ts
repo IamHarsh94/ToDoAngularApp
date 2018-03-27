@@ -19,4 +19,5 @@ export class HomeComponent{
     localStorage.clear();
     this.router.navigate(['/login']);
   }
+  
 }
