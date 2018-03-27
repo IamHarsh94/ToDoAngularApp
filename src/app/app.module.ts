@@ -7,7 +7,7 @@ import {
   MatButtonModule, MatFormFieldModule,
   MatInputModule, MatToolbarModule, MatSidenavModule,
   MatIconModule, MatCardModule, MatSelectModule, MatMenuModule,
-  MatDialogModule,MatGridListModule
+  MatDialogModule,MatGridListModule,MatDatepickerModule,MatNativeDateModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './registration/registration.component';
@@ -75,7 +75,9 @@ export const appRoutes: Routes = [
     MatSelectModule,
     MatMenuModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 
   ],
   entryComponents:[UpdateComponent],

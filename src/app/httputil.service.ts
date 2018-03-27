@@ -25,7 +25,6 @@ export class HttputilService {
 
   //--------------  POST SERVICE ------------------------
   postService(url,obj):Observable<any>{
-
     return this.http.post<any>(url, obj,{ observe: 'response' });
   }
 

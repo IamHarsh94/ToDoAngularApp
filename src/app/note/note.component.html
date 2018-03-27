@@ -9,7 +9,7 @@
 </div>
 
 
-<div fxLayoutAlign="center center" *ngIf="show" style="margin-top: -7%;">
+<div fxLayoutAlign="center center" *ngIf="show" style="margin-top: -10%;">
 
   <mat-card style="width: 41%;">
     <div contenteditable='true' data-text='Title' class="editable line-height" name="title" (input)="model.title=$event.target.innerHTML"></div>
@@ -22,12 +22,12 @@
 
 </div>
 
- <!--************pin div****************** -->
+<!--************pin div****************** -->
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
     <div *ngFor="let note of notes">
       <div *ngIf="note.status===3" class="mat-div">
-        
+
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;">
             <img src="{{unpinSvg}}" (click)="unPinNote(note)">
@@ -43,6 +43,116 @@
           </div>
 
           <div fxLayout="row">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu">
+                <button {type="submit" mat-menu-item (click)="moveToTrash(note)">
+                  <mat-icon>delete</mat-icon>
+                  <span>delete note</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>voicemail</mat-icon>
+                  <span>Check voicemail</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Disable alerts</span>
+                </button>
+              </mat-menu>
+
+            </div>
+
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="color">
+                <mat-icon>color_lens</mat-icon>
+              </button>
+              <mat-menu #color="matMenu">
+                <div>
+                  <a *ngFor="let color of colors">
+                    <img src="{{color.path}}" (click)="note.color=color.color;updateNote(note)">
+                  </a>
+                </div>
+
+              </mat-menu>
+            </div>
+
+            <div>
+              <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="archiveNote(note)">
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--************note div****************** -->
+<div class="class-container" fxLayoutAlign="center center">
+  <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
+    <div *ngFor="let note of notes">
+      <div *ngIf="note.status===0" class="mat-div">
+
+
+        <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
+          <div style="margin-left: 90%;">
+            <img src="{{pinSvg}}" (click)="pinNote(note)">
+          </div>
+          <div (click)="openDialog(note)">
+            <mat-card-header>
+              <mat-card-title>{{note.title}}</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+              {{note.description}}
+            </mat-card-content>
+          </div>
+          <div fxLayout="row">
+
+            <div>
+
+              <button mat-icon-button [matMenuTriggerFor]="reminder">
+                <img src="{{remenderSvg}}">
+              </button>
+
+              <mat-menu #reminder="matMenu">
+                
+                <b> Reminder:</b>
+
+                <button type="submit" mat-menu-item>
+                  <span>Later today</span>
+                  <span>8:00PM</span>
+                </button>
+                
+                <button type="submit" mat-menu-item>
+                  <span>Tomorrow</span>
+                  <span>8:00AM</span>
+                </button>
+                
+                <button type="submit" mat-menu-item>
+                  <span>Next week</span>
+                  <span>Mon, 8:00Am</span>
+                </button>
+
+                <button type="submit" mat-menu-item [matMenuTriggerFor]="calender">
+                    <span>Pick date & time</span>
+                </button>
+                <mat-menu #calender="matMenu">
+                    <mat-form-field>
+                      <input  matInput [matDatepicker]="picker" placeholder="Choose a date">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </mat-menu>
+                    
+                 
+            </mat-menu>
+            
+            </div>
+  
             <div>
               <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
@@ -78,75 +188,8 @@
 
               </mat-menu>
             </div>
-            
-            <div>
-              <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="archiveNote(note)">
-            </div>
-          </div>
-        </mat-card>
-      </div>
-    </div>
-  </div>
-</div>
 
 
- <!--************note div****************** -->
-<div class="class-container" fxLayoutAlign="center center">
-  <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-    <div *ngFor="let note of notes">
-      <div *ngIf="note.status===0" class="mat-div">
-        
-
-        <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
-            <div style="margin-left: 90%;">
-                <img src="{{pinSvg}}"  (click)="pinNote(note)">
-            </div>
-          <div (click)="openDialog(note)">
-            <mat-card-header>
-              <mat-card-title>{{note.title}}</mat-card-title>
-            </mat-card-header>
-
-            <mat-card-content>
-              {{note.description}}
-            </mat-card-content>
-          </div>
-          <div fxLayout="row">
-            <div>
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-
-              <mat-menu #menu="matMenu">
-                <button type="submit" mat-menu-item (click)="moveToTrash(note)">
-                  <mat-icon>delete</mat-icon>
-                  <span>delete note</span>
-                </button>
-                <button mat-menu-item disabled>
-                  <mat-icon>voicemail</mat-icon>
-                  <span>Check voicemail</span>
-                </button>
-                <button mat-menu-item>
-                  <mat-icon>notifications_off</mat-icon>
-                  <span>Disable alerts</span>
-                </button>
-              </mat-menu>
-
-            </div>
-
-            <div>
-              <button mat-icon-button [matMenuTriggerFor]="color">
-                <mat-icon>color_lens</mat-icon>
-              </button>
-              <mat-menu #color="matMenu">
-                <div>
-                  <a *ngFor="let col of colors">
-                    <img src="{{color.path}}" (click)="note.color=col.color; updateNote(note)">
-                  </a>
-                </div>
-
-              </mat-menu>
-            </div>
-            
             <div>
               <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="archiveNote(note)">
             </div>

@@ -15,15 +15,17 @@ import { UpdateComponent } from '../update/update.component';
 export class NoteComponent implements OnInit {
 
   model: any = {};
+  status:any={};
   notes: NoteResponse[];
   trashImg = '/assets/icon/archive.svg';
   pinSvg = '/assets/icon/pin.svg';
   unpinSvg = '/assets/icon/pinblue.svg';
+  remenderSvg = '/assets/icon/remender.svg';
   //dependencies pass in contructor params
   constructor(private commonService: HttputilService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.commonService.getService('getNotes').subscribe(res => {
+      this.commonService.getService('getNotes').subscribe(res => {
       this.notes = res;
       console.log('get all notes check here:', res);
     });
@@ -31,7 +33,6 @@ export class NoteComponent implements OnInit {
 
   /**purpose*/
   openDialog(note) {
-    console.log(note);
 
     this.dialog.open(UpdateComponent, {
       data: note,
@@ -61,7 +62,7 @@ export class NoteComponent implements OnInit {
   /**purpose*/
   moveToTrash(note): void {
     console.log("move trash note", note);
-    note.status = 1;
+    note.status=1;
     this.commonService.putService('updateNote', note).subscribe(response => {
       console.log("deleteNote  response", response);
       this.refreshNote();
@@ -94,7 +95,7 @@ export class NoteComponent implements OnInit {
       this.refreshNote();
     });
   };
-
+  
   updateNote(note) {
     console.log("yes got the data", note);
     this.commonService.putService('updateNote', note)
@@ -103,7 +104,10 @@ export class NoteComponent implements OnInit {
       });
   }
 
-
+  reminderSave(note,remider){
+    console.log(note);
+    console.log(remider);
+  }
 
 
   colors = [{
