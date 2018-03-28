@@ -34,7 +34,7 @@
           </div>
           <div (click)="openDialog(note)">
             <mat-card-header>
-              <mat-card-title>{{note.title}}</mat-card-title>
+              <b>{{note.title}}</b>
             </mat-card-header>
 
             <mat-card-content>
@@ -96,61 +96,89 @@
     <div *ngFor="let note of notes">
       <div *ngIf="note.status===0" class="mat-div">
 
-
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;">
             <img src="{{pinSvg}}" (click)="updateStatusNote(note,3)">
           </div>
           <div (click)="openDialog(note)">
             <mat-card-header>
-              <mat-card-title>{{note.title}}</mat-card-title>
+              <b>{{note.title}}</b>
             </mat-card-header>
 
             <mat-card-content>
               {{note.description}}
             </mat-card-content>
           </div>
+
+          <div *ngIf="note.reminder!=null">
+            <div mat-menu-item fxLayout="row">
+              <label>{{note.reminder|date:'MMM dd,y, hh:mm a'}}</label>
+              <img src="{{clearSvg}}" (click)="reminderSave(note,'null')">
+            </div>
+          </div>
+
           <div fxLayout="row">
-
             <div>
-
               <button mat-icon-button [matMenuTriggerFor]="reminder">
                 <img src="{{remenderSvg}}">
               </button>
 
               <mat-menu #reminder="matMenu">
+                <div>
+                  <button type="submit" mat-menu-item>
+                    <b>Reminder:</b>
+                  </button>
+                </div>
 
-                <b> Reminder:</b>
+                <div>
+                  <button type="submit" mat-menu-item (click)="reminderSave(note,'Today')">
+                    <span>Later today</span>
+                    <span>8:00PM</span>
+                  </button>
+                </div>
 
-                <button type="submit" mat-menu-item  (click)="reminderSave(note)">
-                  <span>Later today</span>
-                  <span>8:00PM</span>
-                </button>
+                <div>
+                  <button type="submit" mat-menu-item (click)="reminderSave(note,'Tomorrow')">
+                    <span>Tomorrow</span>
+                    <span>8:00AM</span>
+                  </button>
+                </div>
 
-                <button type="submit" mat-menu-item>
-                  <span>Tomorrow</span>
-                  <span>8:00AM</span>
-                </button>
+                <div>
+                  <button type="submit" mat-menu-item (click)="reminderSave(note,'Next week')">
+                    <span>Next week</span>
+                    <span>Mon, 8:00Am</span>
+                  </button>
+                </div>
 
-                <button type="submit" mat-menu-item>
-                  <span>Next week</span>
-                  <span>Mon, 8:00Am</span>
-                </button>
+                <div>
+                  <button type="submit" mat-menu-item [matMenuTriggerFor]="calender">
+                    <span>Pick date & time</span>
+                  </button>
+                </div>
 
-                <button type="submit" mat-menu-item [matMenuTriggerFor]="calender">
-                  <span>Pick date & time</span>
-                </button>
                 <mat-menu #calender="matMenu">
                   <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                    <input name="Datepicker" matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="model.Datepicker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
+
+
+                  <div>
+
+
+                  </div>>
+
+
+                  <button type="submit" mat-menu-item (click)="reminderSave(note,'date picker')">
+                    <b>Submit</b>
+                  </button>
                 </mat-menu>
 
 
-              </mat-menu>
 
+              </mat-menu>
             </div>
 
             <div>
@@ -159,18 +187,22 @@
               </button>
 
               <mat-menu #menu="matMenu">
+
                 <button type="submit" mat-menu-item (click)="updateStatusNote(note,1)">
                   <mat-icon>delete</mat-icon>
                   <span>delete note</span>
                 </button>
+
                 <button mat-menu-item disabled>
                   <mat-icon>voicemail</mat-icon>
                   <span>Check voicemail</span>
                 </button>
+
                 <button mat-menu-item>
                   <mat-icon>notifications_off</mat-icon>
                   <span>Disable alerts</span>
                 </button>
+
               </mat-menu>
 
             </div>
@@ -180,23 +212,23 @@
                 <mat-icon>color_lens</mat-icon>
               </button>
               <mat-menu #color="matMenu">
+
                 <div>
                   <a *ngFor="let color of colors">
-                    <img src="{{color.path}}" (click)="note.color=color.color;updateNote(note)">
+                    <img src="{{color.path}}" (click)="note.color=color.color;updateStatusNote(note,note.status)">
                   </a>
                 </div>
 
               </mat-menu>
             </div>
 
-
             <div>
               <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="updateStatusNote(note,2)">
             </div>
+
           </div>
         </mat-card>
       </div>
     </div>
   </div>
-
 </div>

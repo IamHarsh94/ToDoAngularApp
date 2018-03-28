@@ -16,18 +16,20 @@ export class NoteComponent implements OnInit {
 
   model: any = {};
   status:any={};
-  today:Date;
+  Datepicker:any={};
   notes: NoteResponse[];
   trashImg = '/assets/icon/archive.svg';
   pinSvg = '/assets/icon/pin.svg';
   unpinSvg = '/assets/icon/pinblue.svg';
   remenderSvg = '/assets/icon/remender.svg';
+  clearSvg = '/assets/icon/clear.svg';
   //dependencies pass in contructor params
   constructor(private commonService: HttputilService, private dialog: MatDialog) { }
 
   ngOnInit() {
       this.commonService.getService('getNotes').subscribe(res => {
       this.notes = res;
+      console.log(this.notes[0].reminder);
       console.log('get all notes check here:', res);
     });
   }
@@ -68,16 +70,45 @@ export class NoteComponent implements OnInit {
     });
   };
 
-  reminderSave(note){
-   this.today =new Date();
-   note.reminder= this.today;
-   console.log(this.today);
+  
+  reminderSave(note,day){
+    var today =new Date();
+    if(day==='Today'){
+    today.setHours(20);
+    today.setMinutes(0);
+    today.setMilliseconds(0);
+    note.reminder= today;   
+    }
+    else if(day==='Tomorrow'){
+    today.setDate(today.getDate()+1);
+    today.setHours(8);
+    today.setMinutes(0);
+    today.setMilliseconds(0);
+    note.reminder= today;
+    }else if(day==='Next week'){
+      today.setDate(today.getDate()+6);
+      today.setHours(8);
+      today.setMinutes(0);
+      today.setMilliseconds(0);
+      note.reminder= today;  
+    }else if(day==='null'){
+      note.reminder=null;
+    }else{
+      let dateObj = this.model.Datepicker;
+      let validDate =this.convertDate(dateObj) 
+      today.setDate(parseInt(validDate));
+      today.setHours(10);
+      today.setMinutes(0);
+      today.setMilliseconds(0);
+      console.log("today date",today);
+       note.reminder=today;
+      console.log(note);
+    }
     this.commonService.putService('updateNote', note).subscribe(response => {
       console.log("Archive  response", response);
       this.refreshNote();
-    });
+     });
   }
-
 
   colors = [{
     color: '#f26f75',
@@ -112,4 +143,9 @@ export class NoteComponent implements OnInit {
   }
   ];
 
+   convertDate(inputFormat) {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    var d = new Date(inputFormat);
+    return [d.getFullYear(),pad(d.getMonth()+1),pad(d.getDate())].join('/');
+  }
 }
