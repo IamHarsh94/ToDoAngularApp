@@ -111,9 +111,13 @@
           </div>
 
           <div *ngIf="note.reminder!=null">
-            <div mat-menu-item fxLayout="row">
-              <label>{{note.reminder|date:'MMM dd,y, hh:mm a'}}</label>
-              <img src="{{clearSvg}}" (click)="reminderSave(note,'null')">
+            <div mat-menu-item fxLayout="row" style="background-color: gainsboro;">
+              <div style="font-size: 12px;">
+                <label>{{note.reminder|date:'MMM dd,y, hh:mm a'}}</label>
+              </div>
+              <div>
+                <img style="margin-left: 8px;margin-top: 11px;" src="{{clearSvg}}" (click)="reminderSave(note,'null')">
+              </div>
             </div>
           </div>
 
@@ -158,22 +162,15 @@
                 </div>
 
                 <mat-menu #calender="matMenu">
-                  <mat-form-field>
-                    <input name="Datepicker" matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="model.Datepicker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
 
-
+                  Date Time:
+                  <input [(ngModel)]="invalidMoment" [min]="min" [max]="max" [owlDateTimeTrigger]="dt11" [owlDateTime]="dt11" #dateTime="ngModel"
+                    name="reminder" [(ngModel)]="model.reminder" required/>
+                  <owl-date-time #dt11></owl-date-time>
                   <div>
+                    <button mat-button mat-raised-button color="primary" type="submit" (click)="reminderSave(note,'date picker')" style="font-size: 10px;">save</button>
+                  </div>
 
-
-                  </div>>
-
-
-                  <button type="submit" mat-menu-item (click)="reminderSave(note,'date picker')">
-                    <b>Submit</b>
-                  </button>
                 </mat-menu>
 
 
@@ -196,7 +193,7 @@
                 <button mat-menu-item disabled>
                   <mat-icon>voicemail</mat-icon>
                   <span>Check voicemail</span>
-                </button>
+                </button>note
 
                 <button mat-menu-item>
                   <mat-icon>notifications_off</mat-icon>

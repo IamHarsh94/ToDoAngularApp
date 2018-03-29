@@ -24,6 +24,9 @@ import { AuthGuard,LoggedInAuthGuard } from './auth/index';
 import { UpdateComponent } from './update/update.component';
 import { TrashComponent } from './trash/trash.component';
 import { ArchiveComponent } from './archive/archive.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { RemindersComponent } from './reminders/reminders.component';
+
 // import{MatFormsModule,MatFormFieldModule,MatInputModule} from '@angular/material';
 // import{FormsModule} from '@angular/forms';
 // import{MatAnimationsModule} from '@angular/platform-browser/animations';
@@ -38,7 +41,8 @@ export const appRoutes: Routes = [
       { path: '', redirectTo: 'note', pathMatch: 'full'},
       { path: 'note', component: NoteComponent},
       {path:'trash',component:TrashComponent},
-      {path:'archive',component:ArchiveComponent}
+      {path:'archive',component:ArchiveComponent},
+      {path:'Reminders',component:RemindersComponent},
     ],
 
   },
@@ -55,7 +59,8 @@ export const appRoutes: Routes = [
     NoteComponent,
     UpdateComponent,
     TrashComponent,
-    ArchiveComponent
+    ArchiveComponent,
+    RemindersComponent
   ],
   imports: [
     BrowserModule,
@@ -78,8 +83,9 @@ export const appRoutes: Routes = [
     MatDialogModule,
     MatGridListModule,
     MatDatepickerModule,
-    MatNativeDateModule
-
+    MatNativeDateModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   entryComponents:[UpdateComponent],
   providers: [HttputilService,AuthGuard,LoggedInAuthGuard],
