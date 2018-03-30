@@ -11,3 +11,18 @@
    height: 38px;
    
 }
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('assets/icon/userProfile2.svg');
+  background-size: cover;
+}
+.rowDesign{
+  background-color: silver;
+  border-top-style: ridge;
+}
+.login-design{
+  margin-left: 78%;
+}

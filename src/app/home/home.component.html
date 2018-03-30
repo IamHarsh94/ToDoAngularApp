@@ -1,60 +1,88 @@
 <div style="height: 100vh;margin-top: -8px;">
-  <div fxLayout="row">
-    <mat-toolbar style="background : #fb0">
 
-      <div>
-        <button mat-icon-button (click)="sidenav.toggle()" href="#">
-          <mat-icon>menu</mat-icon>
-        </button>
+  <mat-toolbar style="background : #fb0">
+
+    <div>
+      <button mat-icon-button (click)="sidenav.toggle()" href="#">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <div>
+      <span>My ToDo App</span>
+    </div>
+
+    <div>
+      <button mat-icon-button (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+
+    <div class="login-design">
+      <button type="submit" mat-menu-item [matMenuTriggerFor]="login" (click)="getLogedUser()">
+        
+          <div mat-card-avatar class="example-header-image"></div>
+        
+      </button>
+    </div>
+
+    <mat-menu #login="matMenu">
+        <div fxLayout="column" fxLayoutGap="20px">
+      <div fxLayout="row" fxLayoutGap="30px">
+        <div>
+         
+            <div mat-card-avatar class="example-header-image"></div>
+          
+        </div>
+
+        <div>
+        
+            <b>fullname</b>
+            <a>userEmail</a>
+            <button mat-raised-button color="primary">My Account</button>
+         
+        </div>
       </div>
 
-      <div>
-        <span>My ToDo App</span>
-      </div>
-
-      <div>
-        <button mat-icon-button (click)="refresh()">
-          <mat-icon>refresh</mat-icon>
-        </button>
-      </div>
-
-      <div>
-        <mat-toolbar>
-          <button mat-icon-button [matMenuTriggerFor]="matMenu">
-            <mat-icon>account_circle</mat-icon>
-          </button>
-        </mat-toolbar>
-      </div>
-
-      <div>
-        <mat-menu #matMenu="matMenu">
-
-          <div fxLayout="column">
-            <div>Photo</div>
-            <div>usermail</div>
-            <div>
-              <button mat-icon-button (click)="signOut()">sign out</button>
+      <!-- <div fxLayout="row" fxLayoutGap="20px" style="background-color: whitesmoke;height: 74px;margin-left: 21px;">
+          <div>
+         
+               <div mat-card-avatar class="example-header-image"></div>
+   
             </div>
-          </div>
-        </mat-menu>
+      </div> -->
+      <div fxLayout="row" fxLayoutGap="70px" class="rowDesign">
+          <div><button mat-raised-button color="primary">Add Account</button></div>
+          <div> <button type="submit" mat-raised-button color="primary" (click)="signOut()">Sign out</button></div>     
       </div>
-    </mat-toolbar>
-  </div>
+      </div>  
+    </mat-menu>
+
+
+  </mat-toolbar>
+
+
+
+
   <mat-sidenav-container fxFlexFill class="example-container">
     <mat-sidenav mode="side" #sidenav opened fxLayout="column">
       <div fxLayout="column">
 
         <div>
-          <a href="/home/note" mat-button><mat-icon>lightbulb_outline</mat-icon> Note</a>
+          <a href="/home/note" mat-button>
+            <mat-icon>lightbulb_outline</mat-icon> Note</a>
         </div>
         <div>
-            <a href="/home/Reminders" mat-button><img src="/assets/icon/remender.svg"> Reminders</a>
+          <a href="/home/Reminders" mat-button>
+            <img src="/assets/icon/remender.svg"> Reminders</a>
         </div>
         <div>
-          <a href="/home/trash" mat-button><img src="/assets/icon/archive.svg"> Trash</a>
-        </div>                        
+          <a href="/home/trash" mat-button>
+            <img src="/assets/icon/archive.svg"> Trash</a>
+        </div>
         <div>
-          <a href="/home/archive" mat-button><mat-icon>archive</mat-icon> Archive</a>
+          <a href="/home/archive" mat-button>
+            <mat-icon>archive</mat-icon> Archive</a>
         </div>
 
 
@@ -63,4 +91,4 @@
     <router-outlet></router-outlet>
 
   </mat-sidenav-container>
-  </div>
+</div>
