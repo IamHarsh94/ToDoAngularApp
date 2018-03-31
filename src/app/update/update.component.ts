@@ -20,13 +20,11 @@ public MatRef:MatDialogRef<UpdateComponent>) {
     document.getElementById('update-title').innerHTML = this.data.title;
     document.getElementById('update-description').innerHTML = this.data.description;
   }
-
   
   updateNote(){
     console.log("yes got the data",this.data);
     this.commonService.putService('updateNote',this.data)
     .subscribe(response => {
-     console.log("Note update",response);
      this.MatRef.close();
    });
 

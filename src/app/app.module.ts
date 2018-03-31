@@ -26,6 +26,7 @@ import { TrashComponent } from './trash/trash.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { RemindersComponent } from './reminders/reminders.component';
+import { LabelComponent } from './label/label.component';
 
 // import{MatFormsModule,MatFormFieldModule,MatInputModule} from '@angular/material';
 // import{FormsModule} from '@angular/forms';
@@ -60,7 +61,8 @@ export const appRoutes: Routes = [
     UpdateComponent,
     TrashComponent,
     ArchiveComponent,
-    RemindersComponent
+    RemindersComponent,
+    LabelComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,7 @@ export const appRoutes: Routes = [
     OwlDateTimeModule,
     OwlNativeDateTimeModule
   ],
-  entryComponents:[UpdateComponent],
+  entryComponents:[UpdateComponent,LabelComponent],
   providers: [HttputilService,AuthGuard,LoggedInAuthGuard],
   bootstrap: [AppComponent]
 })

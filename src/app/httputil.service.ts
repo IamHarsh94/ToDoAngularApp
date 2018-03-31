@@ -43,14 +43,22 @@ export class HttputilService {
     this.urlpath = this.note_url.concat(path);
       return this.http.get<NoteResponse[]>(this.urlpath,this.httpOptions);    
     }
-    getLogedUser(path): Observable<CurrentUser>{
-      this.urlpath = this.user_Url.concat(path);
-      return this.http.get<CurrentUser>(this.urlpath,this.httpOptions);    
-    }
   //--------------  DELETE SERVICE ------------------------
 
    deleteService(path,noteId):Observable<any>{
      this.urlpath = this.note_url.concat(path);
       return  this.http.delete<any>( this.urlpath+'/'+noteId,this.httpOptions);
    }
+
+//------------------------- USER OPERATION -------------------------// 
+
+getUser(path): Observable<CurrentUser>{
+  this.urlpath = this.user_Url.concat(path);
+  return this.http.get<CurrentUser>(this.urlpath,this.httpOptions);    
+}
+
+getService1(path): Observable<any>{
+  this.urlpath = this.note_url.concat(path);
+    return this.http.get<any>(this.urlpath,this.httpOptions);    
+  }
 }

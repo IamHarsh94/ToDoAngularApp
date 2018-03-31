@@ -97,15 +97,9 @@ export class NoteComponent implements OnInit {
       note.reminder=null;
     }else{
       var dateObj = this.model.reminder;
-      // let validDate =this.convertDate(dateObj); 
       var today = new Date(dateObj);
-      
-      // today.setDate(parseInt(newDt));
-      // console.log("Date obj ",today);
-      
       note.reminder= today;
       this.refreshNote();
-
     }
        this.commonService.putService('updateNote', note).subscribe(response => {
        console.log("Archive  response", response);

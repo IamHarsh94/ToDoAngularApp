@@ -20,42 +20,46 @@
 
     <div class="login-design">
       <button type="submit" mat-menu-item [matMenuTriggerFor]="login" (click)="getLogedUser()">
-        
-          <div mat-card-avatar class="example-header-image"></div>
-        
+
+        <div mat-card-avatar class="example-header-image"></div>
+
       </button>
     </div>
 
     <mat-menu #login="matMenu">
-        <div fxLayout="column" fxLayoutGap="20px">
-      <div fxLayout="row" fxLayoutGap="30px">
-        <div>
-         
-            <div mat-card-avatar class="example-header-image"></div>
-          
-        </div>
-
-        <div>
-        
-            <b>fullname</b>
-            <a>userEmail</a>
-            <button mat-raised-button color="primary">My Account</button>
-         
-        </div>
-      </div>
-
-      <!-- <div fxLayout="row" fxLayoutGap="20px" style="background-color: whitesmoke;height: 74px;margin-left: 21px;">
+      <div fxLayout="column" fxLayoutGap="20px">
+        <div fxLayout="row" fxLayoutGap="30px">
           <div>
-         
-               <div mat-card-avatar class="example-header-image"></div>
-   
-            </div>
-      </div> -->
-      <div fxLayout="row" fxLayoutGap="70px" class="rowDesign">
-          <div><button mat-raised-button color="primary">Add Account</button></div>
-          <div> <button type="submit" mat-raised-button color="primary" (click)="signOut()">Sign out</button></div>     
+
+            <div mat-card-avatar class="example-header-image"></div>
+            
+          </div>
+
+          <div>
+
+            <!-- <p>{{CurrentUser.fullName}}</p>
+             <p>{{user.userEmail}}</p> -->
+            <button mat-raised-button color="primary">My Account</button>
+
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="20px" style="background-color: whitesmoke;height: 74px;margin-left: 21px;">
+          <div>
+
+            <div mat-card-avatar class="example-header-image"></div>
+
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="70px" class="rowDesign">
+          <div>
+            <button mat-raised-button color="primary">Add Account</button>
+          </div>
+          <div>
+            <button type="submit" mat-raised-button color="primary" (click)="signOut()">Sign out</button>
+          </div>
+        </div>
       </div>
-      </div>  
     </mat-menu>
 
 
@@ -85,6 +89,27 @@
             <mat-icon>archive</mat-icon> Archive</a>
         </div>
 
+        <div>
+          <button mat-menu-item>
+            <span>Labels</span>
+          </button>
+        </div>
+
+        <div *ngFor="let label of labels">
+         <div>
+            <button mat-menu-item>
+                <mat-icon>label</mat-icon>
+                <span>{{label.labelTitle}}</span>
+            </button>
+         </div>
+         </div> 
+        
+         <div>
+          <button mat-menu-item  (click)="openLabelDialog()">
+            <mat-icon>add</mat-icon>
+            <span>Create new lable</span>
+          </button>
+         </div>
 
       </div>
     </mat-sidenav>
