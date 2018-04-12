@@ -30,9 +30,9 @@ export class RegistrationComponent {
             this.router.navigate(['/login']);
             alert('User registration successful..');
         } else if (response.status !== 200) {
-            console.log(response);
+          //  console.log(response);
             this.router.navigate(['/register']);
-            alert(response.message);
+            //alert(response.message);
       }
     });
   };

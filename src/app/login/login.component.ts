@@ -28,7 +28,8 @@ export class LoginComponent {
   login(): void {
       this.commonService.postService('http://localhost:8080/ToDo/login', this.model).subscribe(response => {
       console.log(response);
-      if (response.status === 200) {
+      if (response.status === 200) 
+      {
         console.log(response.headers.get("Authorization"));
         localStorage.setItem('Authorization', response.headers.get("Authorization"));
         this.router.navigate(['/home/note']);

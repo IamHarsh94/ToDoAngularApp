@@ -7,6 +7,7 @@ import { CurrentUser } from './CurrentUser';
 import { Observable } from 'rxjs/Observable';
 import { NoteResponse } from './NoteResponse';
 import { Headers } from '@angular/http/src/headers';
+import { Subject } from 'rxjs/Subject';//hamid sir added
 
 @Injectable()
 export class HttputilService {
@@ -15,7 +16,32 @@ export class HttputilService {
   user_Url="http://localhost:8080/ToDo/user/";
   private urlpath;
   private noteId;
+  
   constructor(private http: HttpClient) { }
+
+
+    
+private allLabelSubject = new Subject<any>();
+
+loadAllLabel(path):void{
+this.urlpath = this.note_url.concat(path);
+this.http.get<any>(this.urlpath,this.httpOptions)
+.toPromise().then((res)=>{
+this.allLabelSubject.next(res);
+});
+}
+
+
+getAll(path): Observable<any>{
+this.loadAllLabel(path);
+return this.allLabelSubject.asObservable(); 
+}
+
+// getService(path): Observable<NoteResponse[]>{
+//   this.urlpath = this.note_url.concat(path);
+//     return this.http.get<NoteResponse[]>(this.urlpath,this.httpOptions);    
+// }
+
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -39,8 +65,8 @@ export class HttputilService {
 
   //--------------  GET SERVICE -----------------------------
   
-  getService(path): Observable<NoteResponse[]>{
-    this.urlpath = this.note_url.concat(path);
+   getService(path): Observable<NoteResponse[]>{
+      this.urlpath = this.note_url.concat(path);
       return this.http.get<NoteResponse[]>(this.urlpath,this.httpOptions);    
     }
   //--------------  DELETE SERVICE ------------------------
@@ -61,4 +87,16 @@ getService1(path): Observable<any>{
   this.urlpath = this.note_url.concat(path);
     return this.http.get<any>(this.urlpath,this.httpOptions);    
   }
+
+ putService1(path):Observable<any>{
+  this.urlpath = this.note_url.concat(path);
+    return this.http.get<any>(this.urlpath,this.httpOptions); 
+ }
+
+  add_remove_label(path,object):Observable<any>{
+    
+    this.urlpath = this.note_url.concat(path);
+    return this.http.put(this.urlpath, object, this.httpOptions);
+  }
+
 }

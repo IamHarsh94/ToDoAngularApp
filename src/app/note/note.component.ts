@@ -4,7 +4,8 @@ import { HttputilService } from '../httputil.service';
 import { NoteResponse } from '../NoteResponse';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
 import { UpdateComponent } from '../update/update.component';
-
+import { Label } from '../Label';
+import { reqLabelDto } from '../reqLabelDto';
 //Decorator
 @Component({
   selector: 'app-note',
@@ -13,24 +14,62 @@ import { UpdateComponent } from '../update/update.component';
 })
 /**class used for ....purpose*/
 export class NoteComponent implements OnInit {
-
+  showSelected: boolean;
+  checked : false;
   model: any = {};
   status:any={};
   Datepicker:any={};
   notes: NoteResponse[];
+  reqLabelDto:any={};
+  labels: Label[];
   trashImg = '/assets/icon/archive.svg';
   pinSvg = '/assets/icon/pin.svg';
   unpinSvg = '/assets/icon/pinblue.svg';
   remenderSvg = '/assets/icon/remender.svg';
   clearSvg = '/assets/icon/clear.svg';
-  //dependencies pass in contructor params
-  constructor(private commonService: HttputilService, private dialog: MatDialog) { }
+ 
+  //public checked:boolean=false;
+ 
+  constructor(private commonService: HttputilService, private dialog: MatDialog) {
+   
+   }
+   optionSelect(checked,labelId,noteId):void{
+    
+      if(checked){
+        this.reqLabelDto.checked=true;
+      }else{
+        this.reqLabelDto.checked=false;
+      }
+      this.reqLabelDto.labelId=labelId;  
+      this.reqLabelDto.noteId=noteId;
 
+      this.commonService.add_remove_label('addRemoveLabel',this.reqLabelDto).subscribe(res => {
+        console.log(res);
+        this.getAllLabels('getNotes');
+      });
+     
+  }
   ngOnInit() {
       this.commonService.getService('getNotes').subscribe(res => {
       this.notes = res;
+     console.log(this.notes);
+     this.getAllLabels('getNotes');
     });
   }
+  
+  getAllLabels(path):void{
+    this.commonService.getAll(path).subscribe(res=> {
+    this.notes=res;
+    });
+  }
+  
+//   ShowButton() {
+//     this.showSelected = true;
+// }
+
+// HideButton() {
+//     this.showSelected = false;
+// }
   /**purpose*/
   openDialog(note) {
 
@@ -145,4 +184,20 @@ export class NoteComponent implements OnInit {
     var d = new Date(inputFormat);
     return [d.getFullYear(),pad(d.getMonth()+1),pad(d.getDate())].join('/');
   }
+  getLabels(){
+    this.commonService.getService1('getLabels').subscribe(res => {
+      this.labels = res;
+    });
+  }
+  
+  // addLabel(checked){
+  //   console.log(checked);
+    
+  //   // this.commonService.putService('addLabel',)
+  //   //   .subscribe(response => {
+  //   //     console.log("Label Created", response);
+  //   //  });
+  // }
+  
+
 }

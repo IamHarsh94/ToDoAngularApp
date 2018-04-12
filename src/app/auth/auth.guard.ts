@@ -37,7 +37,7 @@ export class LoggedInAuthGuard implements CanActivate {
             return true;
         }
 
-        // not logged in so redirect to login page with the return url
+        // logged user redirect to home
         this.router.navigate(['/home/note']);
         return false;
     }

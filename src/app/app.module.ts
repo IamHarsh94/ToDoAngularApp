@@ -5,8 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DatePipe } from '@angular/common';
 import {
-  MatButtonModule, MatFormFieldModule,
-  MatInputModule, MatToolbarModule, MatSidenavModule,
+  MatButtonModule, MatFormFieldModule,MatCheckboxModule,
+  MatInputModule, MatToolbarModule, MatSidenavModule,MatChipsModule,
   MatIconModule, MatCardModule, MatSelectModule, MatMenuModule,
   MatDialogModule,MatGridListModule,MatDatepickerModule,MatNativeDateModule
 } from '@angular/material';
@@ -27,6 +27,7 @@ import { ArchiveComponent } from './archive/archive.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { RemindersComponent } from './reminders/reminders.component';
 import { LabelComponent } from './label/label.component';
+import {DropdownModule} from "ngx-dropdown";
 
 // import{MatFormsModule,MatFormFieldModule,MatInputModule} from '@angular/material';
 // import{FormsModule} from '@angular/forms';
@@ -87,7 +88,10 @@ export const appRoutes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    DropdownModule,
+    MatCheckboxModule,
+    MatChipsModule
   ],
   entryComponents:[UpdateComponent,LabelComponent],
   providers: [HttputilService,AuthGuard,LoggedInAuthGuard],
