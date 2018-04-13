@@ -8,10 +8,13 @@ import { Observable } from 'rxjs/Observable';
 import { NoteResponse } from './NoteResponse';
 import { Headers } from '@angular/http/src/headers';
 import { Subject } from 'rxjs/Subject';//hamid sir added
+import { environment } from "../environments/environment"
 
 @Injectable()
 export class HttputilService {
-  base_url = "http://localhost:8080/ToDo/";
+  
+  base_url = environment.base_url; 
+  //base_url = "http://localhost:8080/ToDo/";
   note_url = "http://localhost:8080/ToDo/note/";
   user_Url="http://localhost:8080/ToDo/user/";
   private urlpath;
@@ -36,13 +39,6 @@ getAll(path): Observable<any>{
 this.loadAllLabel(path);
 return this.allLabelSubject.asObservable(); 
 }
-
-// getService(path): Observable<NoteResponse[]>{
-//   this.urlpath = this.note_url.concat(path);
-//     return this.http.get<NoteResponse[]>(this.urlpath,this.httpOptions);    
-// }
-
-
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -94,9 +90,12 @@ getService1(path): Observable<any>{
  }
 
   add_remove_label(path,object):Observable<any>{
-    
     this.urlpath = this.note_url.concat(path);
     return this.http.put(this.urlpath, object, this.httpOptions);
   }
 
+  addcollaborator(path,data):Observable<any>{
+    this.urlpath = this.note_url.concat(path);
+    return this.http.put(this.urlpath,data,this.httpOptions);
+  }
 }

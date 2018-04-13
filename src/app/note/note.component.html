@@ -21,9 +21,8 @@
 <!--************pin div****************** -->
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-    <div *ngFor="let note of notes">
-      <div *ngIf="note.status===3" class="mat-div">
-
+      <div *ngFor="let note of notes | noteFilter : { status : 3}">
+      <div class="mat-div">
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;">
             <img src="{{unpinSvg}}" (click)="updateStatusNote(note,0)">
@@ -83,9 +82,8 @@
 
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-    <div *ngFor="let note of notes">
-      <div *ngIf="note.status===0" class="mat-div">
-
+    <div *ngFor="let note of notes | noteFilter : { status : 0}">
+      <div class="mat-div">
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;padding:0px 0px 15px 14px" class="images">
             <img src="{{pinSvg}}" (click)="updateStatusNote(note,3)">
@@ -99,38 +97,35 @@
               {{note.description}}
             </mat-card-content>
           </div>
-          
+
           <div *ngIf="note.reminder!=null || (note.labels!=null &&  note.labels.length >0)" fxLayout="row" fxLayoutGap="20px">
             <div *ngIf="note.reminder!=null">
-             
-                <mat-chip-list>
-                    <mat-chip>{{note.reminder|date:'MMM dd,y, hh:mm a'}} <img src="{{clearSvg}}" (click)="reminderSave(note,'null')"></mat-chip>
-                </mat-chip-list>
-              <!-- <div mat-menu-item fxLayout="row" style="background-color: gainsboro;">
-                <div>
-                  <label>{{note.reminder|date:'MMM dd,y, hh:mm a'}}</label>
-                </div>
-                <div>
-                  <img style="margin-left: 8px;margin-top: 11px;" src="{{clearSvg}}" (click)="reminderSave(note,'null')">
-                </div>
-              </div> -->
+
+              <mat-chip-list>
+                <mat-chip>{{note.reminder|date:'MMM dd,y, hh:mm a'}}
+                  <img src="{{clearSvg}}" (click)="reminderSave(note,'null')">
+                </mat-chip>
+              </mat-chip-list>
+            
             </div>
 
             <div *ngIf="note.labels!=null">
-                <div *ngFor="let label of note.labels">
+              <div *ngFor="let label of note.labels">
+                <div fxLayout="row" fxLayoutGap="5px">
+                  <div>
                     <mat-chip-list>
-                      <div fxLayout="row" fxLayoutGap="5px">
-                        <div>
-                         <mat-chip>{{label.labelTitle}}<img src="{{clearSvg}}"></mat-chip>
-                        </div>
-                      </div> 
+                      <mat-chip>{{label.labelTitle}}
+                        <img src="{{clearSvg}}" (click)="optionSelect(false,label.labelId,note.noteId)">
+                      </mat-chip>
                     </mat-chip-list>
+                  </div>
                 </div>
+              </div>
             </div>
-           
+
           </div>
 
-          <div fxLayout="row">
+          <div fxLayout="row" style="margin-left: -15px;">
             <div class="images">
               <button mat-icon-button [matMenuTriggerFor]="reminder">
                 <img src="{{remenderSvg}}">
@@ -183,6 +178,10 @@
               </mat-menu>
             </div>
 
+            <div class="images" style="margin-top: 10px;" (click)="openCollaborator()">
+                 <mat-icon>person_add</mat-icon>
+            </div>
+
             <div style="margin-left:10px;" class="images">
               <button mat-icon-button [matMenuTriggerFor]="color">
                 <mat-icon>color_lens</mat-icon>
@@ -202,56 +201,48 @@
               <img style="margin-top: 10px;height: 20px;" src="{{trashImg}}" (click)="updateStatusNote(note,2)">
             </div>
 
-            <div style="margin-left:20px;" class="images">
-              <button mat-icon-button [matMenuTriggerFor]="menu" >
+            <div class="images">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
               </button>
 
               <mat-menu #menu="matMenu">
                 <div>
                   <button type="submit" mat-menu-item (click)="updateStatusNote(note,1)">
-                    <!-- <mat-icon>delete</mat-icon> -->
                     <span>delete note</span>
                   </button>
                 </div>
-<!-- 
-                <div>
-                  <button mat-menu-item (click)="ShowButton()" >
-                    <span>Add label</span>
-                  </button>
-                </div> -->
 
                 <div>
-                  <button type="submit" mat-menu-item [matMenuTriggerFor]="label" (click)="getLabels()" > 
-                      <span> Add label</span>
+                  <button type="submit" mat-menu-item [matMenuTriggerFor]="label" (click)="getLabels()">
+                    <span> Add label</span>
                   </button>
-                </div> 
+                </div>
                 <mat-menu #label="matMenu">
-                    <div fxLayout="column" fxLayoutGap="20px">
-                       <div>
-                         <b>label note</b>
-                       </div>
-                       <div>
-                          <!-- (click)="menuTrigger.openMenu()" -->
-                         <mat-form-field>
-                           <input matInput placeholder="Enter label name">
-                         </mat-form-field>
-                       </div>
-                 
-                       <div *ngFor="let label of labels">
-                          <label>
-                              <input type="checkbox"
-                                     name="labels"
-                                     value="{{label.labelTitle}}"
-                                     [(ngModel)]="label.checked"
-                                     (change)="optionSelect(label.checked,label.labelId,note.noteId)"/>
-                              {{label.labelTitle}}
-                          </label>
-                      </div>
-                
-                     </div>
-                </mat-menu> 
-                 
+                  <div fxLayout="column" fxLayoutGap="20px">
+                    <div>
+                      <b>label note</b>
+                    </div>
+                    <div  fxLayout="row">
+                      <mat-form-field>
+                        <input matInput placeholder="Enter label name"  [(ngModel)]="model.labelTitle">
+                      </mat-form-field>
+                      
+                      <button type="submit" mat-menu-item (click)="createLabel()">
+                          <mat-icon>done</mat-icon>
+                      </button>
+                    </div>
+
+                    <div *ngFor="let label of labels">
+                      <label>
+                        <input type="checkbox" name="labels" value="{{label.labelTitle}}" [(ngModel)]="label.checked" (change)="optionSelect(label.checked,label.labelId,note.noteId)"
+                        /> {{label.labelTitle}}
+                      </label>
+                    </div>
+
+                  </div>
+                </mat-menu>
+
               </mat-menu>
             </div>
           </div>
@@ -261,5 +252,3 @@
   </div>
 </div>
 <!-- (clickOutside)="onClickedOutside($event)" -->
-
- 

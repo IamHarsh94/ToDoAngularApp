@@ -2,14 +2,14 @@
 
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-    <div *ngFor="let note of notes" >
-      <div *ngIf="note.status===1" class="mat-div">
-        <!-- [style.background]="" -->
+      <div *ngFor="let note of notes | noteFilter : { status : 1}">
+      <div class="mat-div">
+       
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div (click)="openDialog(note)">
-            <!-- <mat-card-header> -->
+           
             <div>{{note.title}}</div>
-            <!-- </mat-card-header> -->
+         
 
             <div>
               {{note.description}}

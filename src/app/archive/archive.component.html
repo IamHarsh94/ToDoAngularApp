@@ -2,8 +2,8 @@
 
 <div class="class-container" fxLayoutAlign="center center">
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-      <div *ngFor="let note of notes" >
-        <div *ngIf="note.status===2" class="mat-div">
+        <div *ngFor="let note of notes | noteFilter : { status : 2}">
+        <div class="mat-div">
           <!-- [style.background]="" -->
           <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
               <div style="margin-left: 90%;">

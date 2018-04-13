@@ -28,6 +28,11 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { RemindersComponent } from './reminders/reminders.component';
 import { LabelComponent } from './label/label.component';
 import {DropdownModule} from "ngx-dropdown";
+import { CollaboratorComponent } from './collaborator/collaborator.component';
+import { NoteFilterPipe } from './note-filter.pipe';
+import {loginService} from './login/loginService';
+import {noteService} from './note/noteService';
+import {collaboratorService} from './collaborator/collaborators';
 
 // import{MatFormsModule,MatFormFieldModule,MatInputModule} from '@angular/material';
 // import{FormsModule} from '@angular/forms';
@@ -63,7 +68,9 @@ export const appRoutes: Routes = [
     TrashComponent,
     ArchiveComponent,
     RemindersComponent,
-    LabelComponent
+    LabelComponent,
+    CollaboratorComponent,
+    NoteFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -93,8 +100,9 @@ export const appRoutes: Routes = [
     MatCheckboxModule,
     MatChipsModule
   ],
-  entryComponents:[UpdateComponent,LabelComponent],
-  providers: [HttputilService,AuthGuard,LoggedInAuthGuard],
+  entryComponents:[UpdateComponent,LabelComponent,CollaboratorComponent],
+  providers: [HttputilService,AuthGuard,LoggedInAuthGuard,loginService,noteService,
+    collaboratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,9 @@ import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
 import { UpdateComponent } from '../update/update.component';
 import { Label } from '../Label';
 import { reqLabelDto } from '../reqLabelDto';
+import { CollaboratorComponent } from '../collaborator/collaborator.component';
+
+import { noteService } from './noteService';
 //Decorator
 @Component({
   selector: 'app-note',
@@ -30,7 +33,7 @@ export class NoteComponent implements OnInit {
  
   //public checked:boolean=false;
  
-  constructor(private commonService: HttputilService, private dialog: MatDialog) {
+  constructor(private commonService: HttputilService,private noteService: noteService ,private dialog: MatDialog) {
    
    }
    optionSelect(checked,labelId,noteId):void{
@@ -57,27 +60,31 @@ export class NoteComponent implements OnInit {
     });
   }
   
+  createLabel(): void {
+    this.noteService.createNewLabel(this.model);
+ };
+
   getAllLabels(path):void{
     this.commonService.getAll(path).subscribe(res=> {
     this.notes=res;
     });
   }
   
-//   ShowButton() {
-//     this.showSelected = true;
-// }
 
-// HideButton() {
-//     this.showSelected = false;
-// }
-  /**purpose*/
   openDialog(note) {
 
     this.dialog.open(UpdateComponent, {
       data: note,
-
+      
       width: '600px',
       height: '150px'
+    });
+  }
+  openCollaborator() {
+
+    this.dialog.open(CollaboratorComponent, {
+      width: '600px',
+      height: '250px'
     });
   }
 
@@ -107,7 +114,6 @@ export class NoteComponent implements OnInit {
     });
   };
 
-  
   reminderSave(note,day){
     
     if(day==='Today'){
@@ -189,15 +195,5 @@ export class NoteComponent implements OnInit {
       this.labels = res;
     });
   }
-  
-  // addLabel(checked){
-  //   console.log(checked);
-    
-  //   // this.commonService.putService('addLabel',)
-  //   //   .subscribe(response => {
-  //   //     console.log("Label Created", response);
-  //   //  });
-  // }
-  
 
 }

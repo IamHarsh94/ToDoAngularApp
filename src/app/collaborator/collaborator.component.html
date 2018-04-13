@@ -1,0 +1,31 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <b>Collaborators</b>
+    <div fxLayout="row" fxLayoutGap="10px">
+
+        <div mat-card-avatar class="example-header-image"></div>
+        <div fxLayout="column">
+            <div>{{CurrentUser.fullName}} (Owner)</div>
+            <div>{{CurrentUser.userEmail}}</div>
+        </div>
+       
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="25px">
+            <div><mat-icon>person_add</mat-icon></div> 
+            <mat-form-field>
+                    <input matInput placeholder="Person or email to share with"  [(ngModel)]="model.personEmail" >
+            </mat-form-field>
+    </div>   
+
+    <!-- Display here the collaborators mail -->
+
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="end end">
+      <div>
+          <button mat-button mat-raised-button color="primary" type="submit">CANCEL</button>
+      </div>
+      <div>
+        <button mat-button mat-raised-button color="primary" type="submit" (click)="submitEmail()">SAVE</button>
+     </div>
+    </div>
+
+</div> 
