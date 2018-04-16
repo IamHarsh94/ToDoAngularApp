@@ -1,46 +1,44 @@
-
-
 <div class="class-container" fxLayoutAlign="center center">
-  <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-      <div *ngFor="let note of notes | noteFilter : { status : 1}">
-      <div class="mat-div">
-       
-        <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
-          <div (click)="openDialog(note)">
-           
-            <div>{{note.title}}</div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
+        <div *ngFor="let note of notes | noteFilter : { status : 1}">
+        <div class="mat-div">
          
-
-            <div>
-              {{note.description}}
+          <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
+            <div (click)="openDialog(note)">
+             
+              <div>{{note.title}}</div>
+           
+  
+              <div>
+                {{note.description}}
+              </div>
             </div>
-          </div>
-          <div fxLayout="row">
-            <div>
-
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-
-              <mat-menu #menu="matMenu">
-
-                <button type="submit" mat-menu-item (click)="deleteForever(note.noteId)">
-                  <mat-icon>delete</mat-icon>
-                  <span>delete note</span>
+            <div fxLayout="row">
+              <div>
+  
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
                 </button>
-
-                <button type="submit" mat-menu-item (click)="restore(note)">
-                  <mat-icon>restore</mat-icon>
-                  <span>restore note</span>
-                </button>
-
-              </mat-menu>
+  
+                <mat-menu #menu="matMenu">
+  
+                  <button type="submit" mat-menu-item (click)="deleteForever(note.noteId)">
+                    <mat-icon>delete</mat-icon>
+                    <span>delete note</span>
+                  </button>
+  
+                  <button type="submit" mat-menu-item (click)="restore(note)">
+                    <mat-icon>restore</mat-icon>
+                    <span>restore note</span>
+                  </button>
+  
+                </mat-menu>
+              </div>
             </div>
-          </div>
-        </mat-card>
-
+          </mat-card>
+  
+        </div>
       </div>
+  
     </div>
-
   </div>
-</div>

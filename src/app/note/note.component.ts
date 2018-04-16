@@ -33,10 +33,14 @@ export class NoteComponent implements OnInit {
  
   //public checked:boolean=false;
  
-  constructor(private commonService: HttputilService,private noteService: noteService ,private dialog: MatDialog) {
+  constructor(
+    private commonService: HttputilService,
+    private noteService: noteService ,
+    private dialog: MatDialog,
+    private collabdialog:MatDialog
+  ) {}
    
-   }
-   optionSelect(checked,labelId,noteId):void{
+  optionSelect(checked,labelId,noteId):void{
     
       if(checked){
         this.reqLabelDto.checked=true;
@@ -69,7 +73,6 @@ export class NoteComponent implements OnInit {
     this.notes=res;
     });
   }
-  
 
   openDialog(note) {
 
@@ -80,9 +83,11 @@ export class NoteComponent implements OnInit {
       height: '150px'
     });
   }
-  openCollaborator() {
+  openCollaborator(note) {
 
-    this.dialog.open(CollaboratorComponent, {
+    this.collabdialog.open(CollaboratorComponent, {
+      data: note,
+
       width: '600px',
       height: '250px'
     });

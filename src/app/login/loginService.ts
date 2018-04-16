@@ -27,14 +27,15 @@ export class loginService {
     
     this.commonService.postService('http://localhost:8080/ToDo/login', data).subscribe(response => {
    
-    if (response.status === 200) 
+     console.log(response.body);  
+    if (response.body.statusCode === 200) 
     {
       localStorage.setItem('Authorization', response.headers.get("Authorization"));
      
       this.router.navigate(['/home/note']);
         
-      } else if (response.status !== 200) {
-      alert(response.message);
+      } else if (response.body.statusCode == 400) {
+        alert(response.body.message);
     }
   });
 };

@@ -75,20 +75,31 @@
       <div fxLayout="column">
 
         <div>
-          <a href="/home/note" mat-button>
-            <mat-icon>lightbulb_outline</mat-icon> Note</a>
+            <button mat-menu-item [routerLink]="['/home/note']">
+              <mat-icon>lightbulb_outline</mat-icon>
+              <span>Note</span>
+            </button>
         </div>
+
         <div>
-          <a href="/home/Reminders" mat-button>
-            <img src="/assets/icon/remender.svg"> Reminders</a>
+            <button mat-menu-item [routerLink]="['/home/Reminders']">
+              <mat-icon><img src="/assets/icon/remender.svg"></mat-icon>
+              <span>Reminder</span>
+            </button>
         </div>
+
         <div>
-          <a href="/home/trash" mat-button>
-            <img src="/assets/icon/archive.svg"> Trash</a>
+           <button mat-menu-item [routerLink]="['/home/trash']">
+            <mat-icon>delete</mat-icon> 
+            <span>Trash</span>
+          </button>
         </div>
+
         <div>
-          <a href="/home/archive" mat-button>
-            <mat-icon>archive</mat-icon> Archive</a>
+            <button mat-menu-item [routerLink]="['/home/archive']">
+              <mat-icon>archive</mat-icon> 
+              <span>Archive</span>
+            </button>
         </div>
 
         <div>

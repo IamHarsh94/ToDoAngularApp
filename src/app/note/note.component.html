@@ -21,7 +21,7 @@
 <!--************pin div****************** -->
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-      <div *ngFor="let note of notes | noteFilter : { status : 3}">
+    <div *ngFor="let note of notes | noteFilter : { status : 3}">
       <div class="mat-div">
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;">
@@ -83,6 +83,10 @@
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
     <div *ngFor="let note of notes | noteFilter : { status : 0}">
+      <!-- <app-common-note></app-common-note>  -->
+     <div *ngIf="note.collaboratorName!=null">
+       hiiii
+     </div>
       <div class="mat-div">
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;padding:0px 0px 15px 14px" class="images">
@@ -98,15 +102,15 @@
             </mat-card-content>
           </div>
 
-          <div *ngIf="note.reminder!=null || (note.labels!=null &&  note.labels.length >0)" fxLayout="row" fxLayoutGap="20px">
-            <div *ngIf="note.reminder!=null">
+          <div *ngIf="note.reminder!=null || (note.labels!=null &&  note.labels.length >0) ||note.collaborators!=null" fxLayout="row"
+            fxLayoutGap="20px">
 
+            <div *ngIf="note.reminder!=null">
               <mat-chip-list>
                 <mat-chip>{{note.reminder|date:'MMM dd,y, hh:mm a'}}
                   <img src="{{clearSvg}}" (click)="reminderSave(note,'null')">
                 </mat-chip>
               </mat-chip-list>
-            
             </div>
 
             <div *ngIf="note.labels!=null">
@@ -117,6 +121,18 @@
                       <mat-chip>{{label.labelTitle}}
                         <img src="{{clearSvg}}" (click)="optionSelect(false,label.labelId,note.noteId)">
                       </mat-chip>
+                    </mat-chip-list>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="note.collaborators!=null">
+              <div *ngFor="let collaborator of note.collaborators">
+                <div fxLayout="row" fxLayoutGap="5px">
+                  <div>
+                    <mat-chip-list>
+                      <mat-chip>{{collaborator.userEmail}}</mat-chip>
                     </mat-chip-list>
                   </div>
                 </div>
@@ -178,8 +194,8 @@
               </mat-menu>
             </div>
 
-            <div class="images" style="margin-top: 10px;" (click)="openCollaborator()">
-                 <mat-icon>person_add</mat-icon>
+            <div class="images" style="margin-top: 10px;" (click)="openCollaborator(note.noteId)">
+              <mat-icon>person_add</mat-icon>
             </div>
 
             <div style="margin-left:10px;" class="images">
@@ -223,13 +239,13 @@
                     <div>
                       <b>label note</b>
                     </div>
-                    <div  fxLayout="row">
+                    <div fxLayout="row">
                       <mat-form-field>
-                        <input matInput placeholder="Enter label name"  [(ngModel)]="model.labelTitle">
+                        <input matInput placeholder="Enter label name" [(ngModel)]="model.labelTitle">
                       </mat-form-field>
-                      
+
                       <button type="submit" mat-menu-item (click)="createLabel()">
-                          <mat-icon>done</mat-icon>
+                        <mat-icon>done</mat-icon>
                       </button>
                     </div>
 

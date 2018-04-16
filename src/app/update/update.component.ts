@@ -10,13 +10,15 @@ import { NoteResponse } from '../NoteResponse';
 export class UpdateComponent implements OnInit {
 //  model:any={};
 
-constructor(@Inject(MAT_DIALOG_DATA)  public data: NoteResponse, private commonService:HttputilService,
+constructor(
+@Inject(MAT_DIALOG_DATA)  public data: NoteResponse, 
+private commonService:HttputilService,
 public MatRef:MatDialogRef<UpdateComponent>) {
     
-   }
+}
   
   ngOnInit() {
-    //this.model = this.data;
+
     document.getElementById('update-title').innerHTML = this.data.title;
     document.getElementById('update-description').innerHTML = this.data.description;
   }

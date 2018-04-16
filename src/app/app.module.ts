@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { NgModule } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DatePipe } from '@angular/common';
@@ -33,6 +34,7 @@ import { NoteFilterPipe } from './note-filter.pipe';
 import {loginService} from './login/loginService';
 import {noteService} from './note/noteService';
 import {collaboratorService} from './collaborator/collaborators';
+import { CommonNoteComponent } from './common-note/common-note.component';
 
 // import{MatFormsModule,MatFormFieldModule,MatInputModule} from '@angular/material';
 // import{FormsModule} from '@angular/forms';
@@ -70,7 +72,9 @@ export const appRoutes: Routes = [
     RemindersComponent,
     LabelComponent,
     CollaboratorComponent,
-    NoteFilterPipe
+    NoteFilterPipe,
+    CommonNoteComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -99,7 +103,7 @@ export const appRoutes: Routes = [
     DropdownModule,
     MatCheckboxModule,
     MatChipsModule
-  ],
+    ],
   entryComponents:[UpdateComponent,LabelComponent,CollaboratorComponent],
   providers: [HttputilService,AuthGuard,LoggedInAuthGuard,loginService,noteService,
     collaboratorService],
