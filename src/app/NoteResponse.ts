@@ -9,6 +9,7 @@ export class NoteResponse{
     labels : Array<LabelObject>
     collaborators:Array<User>
     collaboratorName:string;
+    ownerId:number;
 }
 export class LabelObject {
     labelId : number;

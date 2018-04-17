@@ -83,14 +83,14 @@ export class NoteComponent implements OnInit {
       height: '150px'
     });
   }
-  openCollaborator(note) {
+  openCollaborator(nodeId,ownerId) {
 
-    this.collabdialog.open(CollaboratorComponent, {
-      data: note,
+     this.collabdialog.open(CollaboratorComponent, {
+       data: {nodeId,ownerId},
 
-      width: '600px',
-      height: '250px'
-    });
+       width: '600px',
+       height: '250px'
+     });
   }
 
   /**purpose*/

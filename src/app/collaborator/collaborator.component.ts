@@ -23,14 +23,18 @@ export class CollaboratorComponent implements OnInit {
   model: any = {};
   
   ngOnInit() {
-    console.log("note id in collaborator component",this.data);
-      this.commonService.getUser('getUser').subscribe(res => {
-       this.CurrentUser= res;
-    });
+     console.log("note id in collaborator component",this.data);
+     console.log(this.data.nodeId);
+     console.log(this.data.ownerId);
+    
+         this.commonService.getUser('getUser/'+this.data.ownerId).subscribe(res => {
+           this.CurrentUser= res;
+         });
+      
   }
 
   submitEmail() : void{
-    this.model.noteId=this.data;
+    this.model.noteId=this.data.nodeId;
     this.collaboratorService.addPerson(this.model);
   }
 }

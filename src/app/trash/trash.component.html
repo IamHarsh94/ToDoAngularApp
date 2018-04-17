@@ -1,7 +1,8 @@
 <div class="class-container" fxLayoutAlign="center center">
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-        <div *ngFor="let note of notes | noteFilter : { status : 1}">
-        <div class="mat-div">
+         <div *ngFor="let note of notes | noteFilter : { status : 1}">
+          <!-- <app-common-note *ngFor="let note of notes | noteFilter : { status : 1}" [note]="note"></app-common-note> -->
+         <div class="mat-div">
          
           <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
             <div (click)="openDialog(note)">
@@ -37,8 +38,8 @@
             </div>
           </mat-card>
   
-        </div>
-      </div>
+        </div> 
+      </div> 
   
     </div>
   </div>

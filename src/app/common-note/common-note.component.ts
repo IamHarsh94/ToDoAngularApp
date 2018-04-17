@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 
 @Component({
   selector: 'app-common-note',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./common-note.component.css']
 })
 export class CommonNoteComponent implements OnInit {
-
+  @Input() note : any;
   constructor() { }
 
   ngOnInit() {

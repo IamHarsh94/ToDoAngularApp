@@ -26,12 +26,12 @@ export class loginService {
   login(data): void {
     
     this.commonService.postService('http://localhost:8080/ToDo/login', data).subscribe(response => {
-   
+    
      console.log(response.body);  
     if (response.body.statusCode === 200) 
     {
       localStorage.setItem('Authorization', response.headers.get("Authorization"));
-     
+      location.reload();
       this.router.navigate(['/home/note']);
         
       } else if (response.body.statusCode == 400) {

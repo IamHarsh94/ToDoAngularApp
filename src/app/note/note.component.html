@@ -84,13 +84,10 @@
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
     <div *ngFor="let note of notes | noteFilter : { status : 0}">
       <!-- <app-common-note></app-common-note>  -->
-     <div *ngIf="note.collaboratorName!=null">
-       hiiii
-     </div>
       <div class="mat-div">
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;padding:0px 0px 15px 14px" class="images">
-            <img src="{{pinSvg}}" (click)="updateStatusNote(note,3)">
+            <img src="{{pinSvg}}" (createLabelclick)="updateStatusNote(note,3)">
           </div>
           <div (click)="openDialog(note)">
             <mat-card-header>
@@ -102,7 +99,7 @@
             </mat-card-content>
           </div>
 
-          <div *ngIf="note.reminder!=null || (note.labels!=null &&  note.labels.length >0) ||note.collaborators!=null" fxLayout="row"
+          <div *ngIf="note.reminder!=null || (note.labels!=null &&  note.labels.length >0) ||note.collaborators!=null || note.collaboratorName!=null" fxLayout="row"
             fxLayoutGap="20px">
 
             <div *ngIf="note.reminder!=null">
@@ -127,6 +124,7 @@
               </div>
             </div>
 
+          <div *ngIf="note.collaboratorName==null">
             <div *ngIf="note.collaborators!=null">
               <div *ngFor="let collaborator of note.collaborators">
                 <div fxLayout="row" fxLayoutGap="5px">
@@ -137,6 +135,18 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+            <div *ngIf="note.collaboratorName!=null">
+                <div fxLayout="row" fxLayoutGap="5px">
+                  <div>
+                    <mat-chip-list>
+                      <mat-chip><b>Shared from:</b>{{note.collaboratorName}}</mat-chip>
+                    </mat-chip-list>
+                  </div>
+                </div>
+
             </div>
 
           </div>
@@ -194,7 +204,7 @@
               </mat-menu>
             </div>
 
-            <div class="images" style="margin-top: 10px;" (click)="openCollaborator(note.noteId)">
+            <div class="images" style="margin-top: 10px;" (click)="openCollaborator(note.noteId,note.ownerId)">
               <mat-icon>person_add</mat-icon>
             </div>
 
@@ -251,11 +261,11 @@
 
                     <div *ngFor="let label of labels">
                       <label>
-                        <input type="checkbox" name="labels" value="{{label.labelTitle}}" [(ngModel)]="label.checked" (change)="optionSelect(label.checked,label.labelId,note.noteId)"
+                        <input type="checkbox"  name="labels" value="{{label.labelTitle}}" [(ngModel)]="label.checked" (change)="optionSelect(label.checked,label.labelId,note.noteId)"
                         /> {{label.labelTitle}}
                       </label>
                     </div>
-
+                    
                   </div>
                 </mat-menu>
 
@@ -264,6 +274,7 @@
           </div>
         </mat-card>
       </div>
+   
     </div>
   </div>
 </div>
