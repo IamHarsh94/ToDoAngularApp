@@ -9,20 +9,24 @@ import { Router } from '@angular/router';
 import { Headers } from '@angular/http/src/headers';
 import { Subject } from 'rxjs/Subject';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
-
+import {User}from '../collaboratorRes';
 @Injectable()
 export class collaboratorService {
+ user : User;
 
   constructor(private commonService: HttputilService, 
     private dialog: MatDialog) {}
 
   addPerson(data): void {
-     this.commonService.addcollaborator('addcollaborator', data).subscribe(response => {
+     this.commonService.addcollaborator('addRemovecollaborator', data).subscribe(response => {
+
      if (response.status === 200)
-      { // get the collaborators from db 
-        
+      { 
+        alert(response.message);
       } else if (response.status == 300) {
          alert(response.message);
+      }else if(response.status === 201){
+        alert(response.message);
       }
       else{
         alert(response.message);

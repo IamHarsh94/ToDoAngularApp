@@ -57,13 +57,13 @@ export class NoteComponent implements OnInit {
      
   }
   ngOnInit() {
-      this.commonService.getService('getNotes').subscribe(res => {
+     
+     console.log(this.notes); this.commonService.getService('getNotes').subscribe(res => {
       this.notes = res;
-     console.log(this.notes);
+
      this.getAllLabels('getNotes');
     });
   }
-  
   createLabel(): void {
     this.noteService.createNewLabel(this.model);
  };
@@ -83,10 +83,10 @@ export class NoteComponent implements OnInit {
       height: '150px'
     });
   }
-  openCollaborator(nodeId,ownerId) {
+  openCollaborator(note,ownerId) {
 
      this.collabdialog.open(CollaboratorComponent, {
-       data: {nodeId,ownerId},
+       data: {note,ownerId},
 
        width: '600px',
        height: '250px'

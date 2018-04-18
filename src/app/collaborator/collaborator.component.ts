@@ -5,6 +5,7 @@ import { collaboratorService } from './collaborators';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
 import { NoteResponse } from '../NoteResponse';
 
+
 @Component({
   selector: 'app-collaborator',
   templateUrl: './collaborator.component.html',
@@ -21,20 +22,25 @@ export class CollaboratorComponent implements OnInit {
   
   public CurrentUser;
   model: any = {};
-  
   ngOnInit() {
-     console.log("note id in collaborator component",this.data);
-     console.log(this.data.nodeId);
-     console.log(this.data.ownerId);
-    
-         this.commonService.getUser('getUser/'+this.data.ownerId).subscribe(res => {
-           this.CurrentUser= res;
+          this.commonService.getUser('getUser/'+this.data.ownerId).subscribe(res => {
+          this.CurrentUser= res;
          });
-      
   }
 
-  submitEmail() : void{
-    this.model.noteId=this.data.nodeId;
-    this.collaboratorService.addPerson(this.model);
+  add_remove_collaborator(userMail) : void {
+    if(userMail!='null'){
+    
+      this.model.noteId=this.data.note.noteId;
+     this.model.removeUserMail=userMail;
+    
+     this.collaboratorService.addPerson(this.model);
+    }
+    else{
+        this.model.noteId=this.data.note.noteId;
+      this.collaboratorService.addPerson(this.model); 
+     }
+   
+  }
   }
 }

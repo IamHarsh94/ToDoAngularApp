@@ -1,5 +1,5 @@
 export class NoteResponse{
-    nodeId : number;
+    noteId : number;
     message : string;
     title   : string;
     description : string;
