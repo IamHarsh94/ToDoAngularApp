@@ -18,7 +18,6 @@ export class noteService {
   createNewLabel(data): void {
      this.commonService.putService('createLabel', data)
      .subscribe(response => {
-       console.log("Label Created", response);
      });
  };
 

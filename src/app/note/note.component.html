@@ -81,18 +81,22 @@
 <!--************note div******************-->
 
 <div class="class-container" fxLayoutAlign="center center">
+
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-    <div *ngFor="let note of notes | noteFilter : { status : 0}">
+   
+    <!-- <nav class="navbar navbar-toggleable-md bg-primary fixed-top"
+    [ngClass]="{ 'navbar-transparent': this.isHome }"> -->
+
+    <div *ngFor="let note of notes | noteFilter : { status : 0}" class={{statusClass}}>
       <!-- <app-common-note></app-common-note>  -->
-      <div class="mat-div">
-        <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
+      
+        <mat-card [style.background]="note.color">
           <div style="margin-left: 90%;padding:0px 0px 15px 14px" class="images">
             <img src="{{pinSvg}}" (click)="updateStatusNote(note,3)">
           </div>
           <div (click)="openDialog(note)">
             <mat-card-header>
               <b [innerHTML]="note.title"></b>
-
             </mat-card-header>
 
             <mat-card-content>
@@ -129,7 +133,7 @@
               </div>
             </div>
 
-            <div *ngIf="note.ownerId==0">
+             <div *ngIf="note.ownerId==0">
               <div *ngIf="note.collaborators!=null">
                 <div *ngFor="let collaborator of note.collaborators">
                   <div fxLayout="row" fxLayoutGap="5px">
@@ -141,7 +145,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+             </div>
 
             <div *ngIf="note.collaboratorName!=null">
               <div fxLayout="row" fxLayoutGap="5px">
@@ -197,8 +201,7 @@
                 </div>
 
                 <mat-menu #calender="matMenu">
-
-                  Date Time:
+                  <b>Date Time:</b>
                   <input [(ngModel)]="invalidMoment" [min]="min" [max]="max" [owlDateTimeTrigger]="dt11" [owlDateTime]="dt11" #dateTime="ngModel"
                     name="reminder" [(ngModel)]="model.reminder" required/>
                   <owl-date-time #dt11></owl-date-time>
@@ -206,6 +209,7 @@
                     <button mat-button mat-raised-button color="primary" type="submit" (click)="reminderSave(note,'date picker')" style="font-size: 10px;">save</button>
                   </div>
                 </mat-menu>
+
               </mat-menu>
             </div>
 
@@ -278,7 +282,7 @@
             </div>
           </div>
         </mat-card>
-      </div>
+      
 
     </div>
   </div>

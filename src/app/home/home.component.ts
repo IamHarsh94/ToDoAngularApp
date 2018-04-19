@@ -42,6 +42,9 @@ labels: Label[];
     });
     // this.refreshNote();
   }
+  changeCSS(){
+    this.commonService.toggleView();
+  }
   // refreshNote(): void {
   //   this.commonService.getService1('getLabels').subscribe(res => {
   //     this.labels = res;

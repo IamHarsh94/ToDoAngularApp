@@ -1,7 +1,8 @@
 <div style="height: 100vh;margin-top: -8px;">
 
   <mat-toolbar style="background : rgb(211, 82, 228)">
-
+    <div fxLayout="row" fxLayoutGap="280%">
+    <div fxLayout="row">
     <div>
       <button mat-icon-button (click)="sidenav.toggle()" href="#">
         <mat-icon>menu</mat-icon>
@@ -18,7 +19,17 @@
       </button>
     </div>
 
-    <div class="login-design">
+    </div>
+
+    <div fxLayout="row"  fxLayoutGap="20px">
+    <div>
+           <mat-icon ng-show="showList" style="margin-top: 10px;" (click)="changeCSS()">view_list</mat-icon>
+           <!-- <mat-icon style="margin-top: 10px;" (click)="changeCSS()">dashboard</mat-icon> -->
+     </div>    
+    <!-- <div>
+        <mat-icon style="margin-top: 10px;">dashboard</mat-icon>
+    </div> -->
+    <div>
       <button type="submit" mat-menu-item [matMenuTriggerFor]="login" (click)="getLogedUser()">
 
         <div mat-card-avatar class="example-header-image"></div>
@@ -61,8 +72,8 @@
         </div>
       </div>
     </mat-menu>
-
-
+</div>
+</div>
   </mat-toolbar>
 
 

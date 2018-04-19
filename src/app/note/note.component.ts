@@ -19,8 +19,10 @@ import { noteService } from './noteService';
 export class NoteComponent implements OnInit {
   showSelected: boolean;
   checked : false;
+  gridListStatus:boolean;
   model: any = {};
   status:any={};
+  statusClass : string="grid-view";
   Datepicker:any={};
   notes: NoteResponse[];
   reqLabelDto:any={};
@@ -56,11 +58,14 @@ export class NoteComponent implements OnInit {
       });
      
   }
-  ngOnInit() {
-     
-     console.log(this.notes); this.commonService.getService('getNotes').subscribe(res => {
+  ngOnInit() { 
+     this.commonService.getService('getNotes').subscribe(res => {
       this.notes = res;
-
+      this.commonService.getStatus().subscribe((status)=>{
+        
+        this.statusClass = status? "list-view":"grid-view";
+          
+      });
      this.getAllLabels('getNotes');
     });
   }
@@ -104,6 +109,7 @@ export class NoteComponent implements OnInit {
   createNote(): void {
     this.commonService.putService('createNote', this.model)
       .subscribe(response => {
+        
         console.log("Note Created", response);
         this.refreshNote();
       });

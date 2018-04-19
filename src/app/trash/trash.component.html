@@ -4,16 +4,14 @@
           <!-- <app-common-note *ngFor="let note of notes | noteFilter : { status : 1}" [note]="note"></app-common-note> -->
          <div class="mat-div">
          
-          <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
+          <mat-card  fxFlex="230px" [style.background]="note.color">
             <div (click)="openDialog(note)">
              
-              <div>{{note.title}}</div>
-           
-  
-              <div>
-                {{note.description}}
-              </div>
+              <div  [innerHTML]="note.title"></div>
+              <div [innerHTML]="note.description"></div>
+
             </div>
+            
             <div fxLayout="row">
               <div>
   

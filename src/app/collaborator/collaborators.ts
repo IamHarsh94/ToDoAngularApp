@@ -23,9 +23,12 @@ export class collaboratorService {
      if (response.status === 200)
       { 
         alert(response.message);
+
       } else if (response.status == 300) {
+
          alert(response.message);
       }else if(response.status === 201){
+        
         alert(response.message);
       }
       else{

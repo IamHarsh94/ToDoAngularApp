@@ -19,26 +19,37 @@ export class HttputilService {
   user_Url="http://localhost:8080/ToDo/user/";
   private urlpath;
   private noteId;
-  
-  constructor(private http: HttpClient) { }
-
-
+  status:boolean = true;  
+constructor(private http: HttpClient) { }
     
 private allLabelSubject = new Subject<any>();
 
-loadAllLabel(path):void{
-this.urlpath = this.note_url.concat(path);
-this.http.get<any>(this.urlpath,this.httpOptions)
-.toPromise().then((res)=>{
-this.allLabelSubject.next(res);
+private viewSubject = new Subject<any>();
+
+toggleView(){
+  this.status = !this.status;
+  this.viewSubject.next(this.status);
+}
+
+getStatus(){
+  setTimeout(this.toggleView);
+  return this.viewSubject.asObservable();
+}
+
+loadAllLabel(path):void {
+  this.urlpath = this.note_url.concat(path);
+  this.http.get<any>(this.urlpath,this.httpOptions).toPromise().then((res)=>{
+  this.allLabelSubject.next(res);
 });
 }
 
 
-getAll(path): Observable<any>{
-this.loadAllLabel(path);
-return this.allLabelSubject.asObservable(); 
+getAll(path): Observable<any> {
+  this.loadAllLabel(path);
+  return this.allLabelSubject.asObservable(); 
 }
+
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -64,6 +75,7 @@ return this.allLabelSubject.asObservable();
    getService(path): Observable<NoteResponse[]>{
       this.urlpath = this.note_url.concat(path);
       return this.http.get<NoteResponse[]>(this.urlpath,this.httpOptions);    
+
     }
   //--------------  DELETE SERVICE ------------------------
 
