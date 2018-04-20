@@ -1,6 +1,6 @@
 <div style="height: 100vh;margin-top: -8px;">
 
-  <mat-toolbar style="background : rgb(211, 82, 228)">
+  <mat-toolbar style="background : rgb(211, 82, 228);position: sticky;">
     <div fxLayout="row" fxLayoutGap="280%">
     <div fxLayout="row">
     <div>
@@ -22,12 +22,13 @@
     </div>
 
     <div fxLayout="row"  fxLayoutGap="20px">
-    <div>
-           <mat-icon ng-show="showList" style="margin-top: 10px;" (click)="changeCSS()">view_list</mat-icon>
-           <!-- <mat-icon style="margin-top: 10px;" (click)="changeCSS()">dashboard</mat-icon> -->
-     </div>    
+      <div>
+          <button mat-icon-button>
+           <mat-icon style="margin-top: 10px;" (click)="changeCSS()">view_list</mat-icon>
+          </button>
+      </div>    
     <!-- <div>
-        <mat-icon style="margin-top: 10px;">dashboard</mat-icon>
+        <mat-icon style="margin-top: 10px;" (click)="changeCSS()">dashboard</mat-icon>
     </div> -->
     <div>
       <button type="submit" mat-menu-item [matMenuTriggerFor]="login" (click)="getLogedUser()">
@@ -36,7 +37,7 @@
 
       </button>
     </div>
-
+ </div>
     <mat-menu #login="matMenu">
       <div fxLayout="column" fxLayoutGap="20px">
         <div fxLayout="row" fxLayoutGap="30px">
@@ -72,7 +73,7 @@
         </div>
       </div>
     </mat-menu>
-</div>
+
 </div>
   </mat-toolbar>
 

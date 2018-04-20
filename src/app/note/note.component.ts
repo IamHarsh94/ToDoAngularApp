@@ -7,7 +7,7 @@ import { UpdateComponent } from '../update/update.component';
 import { Label } from '../Label';
 import { reqLabelDto } from '../reqLabelDto';
 import { CollaboratorComponent } from '../collaborator/collaborator.component';
-
+import { CurrentUser } from '../CurrentUser';
 import { noteService } from './noteService';
 //Decorator
 @Component({
@@ -17,16 +17,18 @@ import { noteService } from './noteService';
 })
 /**class used for ....purpose*/
 export class NoteComponent implements OnInit {
+  LogedUser :CurrentUser;
   showSelected: boolean;
   checked : false;
   gridListStatus:boolean;
   model: any = {};
   status:any={};
-  statusClass : string="grid-view";
+  statusClass : string=localStorage.getItem('class');
   Datepicker:any={};
   notes: NoteResponse[];
   reqLabelDto:any={};
   labels: Label[];
+  userDetails:any={};
   trashImg = '/assets/icon/archive.svg';
   pinSvg = '/assets/icon/pin.svg';
   unpinSvg = '/assets/icon/pinblue.svg';
@@ -59,20 +61,25 @@ export class NoteComponent implements OnInit {
      
   }
   ngOnInit() { 
-     this.commonService.getService('getNotes').subscribe(res => {
-      this.notes = res;
-      this.commonService.getStatus().subscribe((status)=>{
-        
-        this.statusClass = status? "list-view":"grid-view";
-          
-      });
-     this.getAllLabels('getNotes');
-    });
+       this.commonService.getService('getNotes').subscribe(res => {
+       this.notes = res;
+       this.commonService.getStatus().subscribe((status)=>{
+       this.statusClass = status? "list-view":"grid-view";
+      
+       if(status){   
+        localStorage.setItem('class','list-view');     
+       }else{
+         localStorage.setItem('class','grid-view');
+       }
+
+       });
+      this.getAllLabels('getNotes');
+     });
   }
   createLabel(): void {
     this.noteService.createNewLabel(this.model);
  };
-
+ 
   getAllLabels(path):void{
     this.commonService.getAll(path).subscribe(res=> {
     this.notes=res;

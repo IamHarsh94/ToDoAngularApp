@@ -7,9 +7,9 @@
 </div>
 
 <div fxLayoutAlign="center center" *ngIf="show" style="margin-top: 15px;">
-
   <mat-card style="width: 41%; padding: 5px; ">
     <div style="font-weight: bold; padding: 10px 5px;" contenteditable='true' data-text='Title' class="editable line-height"
+
       name="title" (input)="model.title=$event.target.innerHTML"></div>
     <div style="padding: 12px 5px 15px 5px;" contenteditable='true' data-text='Take a note..' class="editable line-height" name="description"
       (input)="model.description=$event.target.innerHTML"></div>
@@ -25,7 +25,7 @@
       <div class="mat-div">
         <mat-card class="note-card" fxFlex="230px" [style.background]="note.color">
           <div style="margin-left: 90%;">
-            <img src="{{unpinSvg}}" (click)="updateStatusNote(note,0)">
+            <img src="{{unpinSvg}}" (click)="updateStatusNote(note,0)"  class="images">
           </div>
           <div (click)="openDialog(note)">
             <mat-card-header>
@@ -91,9 +91,11 @@
       <!-- <app-common-note></app-common-note>  -->
       
         <mat-card [style.background]="note.color">
+
           <div style="margin-left: 90%;padding:0px 0px 15px 14px" class="images">
             <img src="{{pinSvg}}" (click)="updateStatusNote(note,3)">
           </div>
+          
           <div (click)="openDialog(note)">
             <mat-card-header>
               <b [innerHTML]="note.title"></b>
@@ -104,7 +106,7 @@
               <b></b>
             </mat-card-content>
           </div>
-
+        
           <div *ngIf="note.reminder!=null || (note.labels!=null &&  note.labels.length >0) ||note.collaborators!=null || note.collaboratorName!=null"
             fxLayout="row" fxLayoutGap="20px">
 

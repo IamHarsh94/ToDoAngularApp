@@ -30,7 +30,7 @@ labels: Label[];
   
   signOut() : void{
     
-    localStorage.clear();
+    localStorage.removeItem('Authorization');
     this.router.navigate(['/login']);
   }
 
