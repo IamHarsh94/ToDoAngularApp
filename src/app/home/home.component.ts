@@ -36,7 +36,7 @@ labels: Label[];
 
   openLabelDialog() {
     this.dialog.open(LabelComponent, {
-     
+      
       width: '400px',
       height: '210px'
     });

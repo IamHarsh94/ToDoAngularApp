@@ -25,10 +25,24 @@ export class LoginComponent {
 
   constructor(private loginService: loginService, private router : Router) { }
 
-  login():void {
-       this.loginService.login(this.model);
-  };
+  // loginWithFb():void{
+  //   console.log('login ts');
+  //     this.loginService.loginFB();
+  // };
+    fbLogin() {
+      this.loginService.login()
+                       .then(() => {
+      this.router.navigate(['/home']);
+    });
+   }
+
+
+  // fbLogin() {
+  //   this.userService.fbLogin().then(() => {
+  //     this.router.navigate(['/home']);
+  //   });  }
   
+
   emailControl = new FormControl('', [
     Validators.required,
     Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),

@@ -1,8 +1,8 @@
 import { Component, OnInit,Output } from '@angular/core';
 import { HttputilService } from '../httputil.service';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
-
 import { Label } from '../Label';
+
 @Component({
   selector: 'app-label',
   templateUrl: './label.component.html',

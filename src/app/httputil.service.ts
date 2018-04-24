@@ -110,4 +110,7 @@ getService1(path): Observable<any>{
     this.urlpath = this.note_url.concat(path);
     return this.http.put(this.urlpath,data,this.httpOptions);
   }
+  facebooklogin(path):Observable<any>{
+    return this.http.post<any>(path,{ observe: 'response' });
+  }
 }
