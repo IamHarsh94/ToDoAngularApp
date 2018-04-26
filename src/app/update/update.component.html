@@ -1,4 +1,18 @@
 <div fxLayout="column" fxLayoutGap="12px">
+       
+    <div *ngIf="data.image">
+            <mat-card>
+                <mat-card-header>
+                 <img [src]='"/assets/icon/"+data.image'/>
+                </mat-card-header>
+                <button mat-icon-button  style="margin-left: 96%;" (click)="removeImage()">
+                        <mat-icon>delete</mat-icon>
+                </button>
+                    
+            </mat-card>
+             
+    </div>
+
     <div id="update-title" contenteditable='true' data-text='Title' class="editable line-height"name="title" (input)="data.title=$event.target.innerHTML"></div>
 
     <div id="update-description" contenteditable='true' data-text='Take a note..' class="editable line-height" name="description" (input)="data.description=$event.target.innerHTML"></div>

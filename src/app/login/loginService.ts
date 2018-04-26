@@ -16,15 +16,27 @@ declare const FB:any;
 export class loginService {
 
   constructor(private http: AuthHttp,private commonService: HttputilService, private router : Router) {
-  
-    FB.init({
-      appId      : '216332969128183',
-      status     : false, // the SDK will attempt to get info about the current user immediately after init
-      cookie     : false,  // enable cookies to allow the server to access
-      // the session
-      xfbml      : false,  // With xfbml set to true, the SDK will parse your page's DOM to find and initialize any social plugins that have been added using XFBML
-      version    : 'v2.8' // use graph api version 2.5
-    });
+   
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = '//connect.facebook.net/en_US/sdk.js';
+      fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  //  window.fbAsyncInit = () => {
+  //   FB.init({
+  //     appId      : '216332969128183',
+  //     status     : false, // the SDK will attempt to get info about the current user immediately after init
+  //     cookie     : false,  // enable cookies to allow the server to access
+  //     // the session
+  //     xfbml      : false,  // With xfbml set to true, the SDK will parse your page's DOM to find and initialize any social plugins that have been added using XFBML
+  //     version    : 'v2.8' // use graph api version 2.5
+  //   });
+  //   FB.AppEvents.logPageView();
+  //  };
+
   } 
 // private allLabelSubject = new Subject<any>();
 
@@ -35,58 +47,35 @@ export class loginService {
 //     })
 //   };
 
-//   login(data): void {
+   login(data): void {
     
-//     this.commonService.postService('http://localhost:8080/ToDo/login', data).subscribe(response => {
+     this.commonService.postService('http://localhost:8080/ToDo/login', data).subscribe(response => {
     
-//      console.log(response.body);  
-//     if (response.body.statusCode === 200) 
-//     {
-//       localStorage.setItem('Authorization', response.headers.get("Authorization"));
-//       location.reload();
-//       this.router.navigate(['/home/note']);
+      console.log(response.body);  
+     if (response.body.statusCode === 200) 
+     {
+       localStorage.setItem('Authorization', response.headers.get("Authorization"));
+       location.reload();
+       this.router.navigate(['/home/note']);
         
-//       } else if (response.body.statusCode == 400) {
-//         alert(response.body.message);
-//     }
+       } else if (response.body.statusCode == 400) {
+         alert(response.body.message);
+     }
+   });
+ };
+
+// loginwithFB() {
+//   return new Promise((resolve, reject) => { 
+      
+//       FB.login(result => {
+//       console.log(result);
+        
+      
+
+//     }, {scope: 'public_profile,email'})
+
 //   });
-// };
-
-login() {
-  // this.commonService.facebooklogin('http://localhost:8080/ToDo/facebookwithlogin').subscribe(response => {
-  //    if(response.status==200){
-  //       console.log("mast re bhai");
-  //    }else{
-  //       console.log("nhi huwa bhai");
-  //    } 
-  // });
-
-
-  return new Promise((resolve, reject) => {
-    FB.login(result => {
-      console.log(result);
-      // if (result.authResponse) {
-      //     return this.http.post(`http://localhost:3000/api/auth/facebook`, {access_token: result.authResponse.accessToken})
-      //     // , {access_token: result.authResponse.accessToken})
-      //     .toPromise()
-      //       .then(response => {
-      //          console.log(response)
-
-      //          var token = response.headers.get('x-auth-token');
-      //           console.log(token)
-      //           if (token) {
-      //           localStorage.setItem('token', token);
-      //         }
-      //         resolve(response.json());
-      //       })
-      //       .catch(() => reject());
-      // } else {
-      //   reject();
-      // }
-    }, {scope: 'public_profile,email'})
-
-  });
-}
+// }
 
 }
 

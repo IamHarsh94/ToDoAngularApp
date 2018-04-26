@@ -21,7 +21,12 @@ export class noteService {
      });
  };
 
-
+ addImage(note): void {
+  this.commonService.putService('updateNote',note)
+  .subscribe(response => {
+    console.log("Image response :",response);
+  });
+};
 // private allLabelSubject = new Subject<any>();
 
 // httpOptions = {

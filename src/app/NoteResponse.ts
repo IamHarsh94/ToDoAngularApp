@@ -10,6 +10,7 @@ export class NoteResponse{
     collaborators:Array<User>
     collaboratorName:string;
     ownerId:number;
+    image :string;
 }
 export class LabelObject {
     labelId : number;

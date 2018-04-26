@@ -63,12 +63,11 @@ getAll(path): Observable<any> {
   }
 
   //--------------  PUT SERVICE ------------------------
-  
+
   putService(path, note): Observable<any>{
     this.urlpath = this.note_url.concat(path);
     return this.http.put(this.urlpath, note, this.httpOptions);
   }
-
 
   //--------------  GET SERVICE -----------------------------
   
@@ -76,7 +75,8 @@ getAll(path): Observable<any> {
       this.urlpath = this.note_url.concat(path);
       return this.http.get<NoteResponse[]>(this.urlpath,this.httpOptions);    
 
-    }
+  }
+  
   //--------------  DELETE SERVICE ------------------------
 
    deleteService(path,noteId):Observable<any>{

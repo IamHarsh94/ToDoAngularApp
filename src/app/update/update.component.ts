@@ -29,6 +29,12 @@ public MatRef:MatDialogRef<UpdateComponent>) {
     .subscribe(response => {
      this.MatRef.close();
    });
-
+  }
+  removeImage(){ 
+    this.data.image=null;
+    this.commonService.putService('updateNote',this.data)
+    .subscribe(response => {
+        console.log(response);
+   });
   }
 }

@@ -34,7 +34,7 @@ export class NoteComponent implements OnInit {
   unpinSvg = '/assets/icon/pinblue.svg';
   remenderSvg = '/assets/icon/remender.svg';
   clearSvg = '/assets/icon/clear.svg';
- 
+  
   //public checked:boolean=false;
  
   constructor(
@@ -60,7 +60,7 @@ export class NoteComponent implements OnInit {
       });
      
   }
-  ngOnInit() { 
+  ngOnInit() {
        this.commonService.getService('getNotes').subscribe(res => {
        this.notes = res;
        this.commonService.getStatus().subscribe((status)=>{
@@ -76,6 +76,32 @@ export class NoteComponent implements OnInit {
       this.getAllLabels('getNotes');
      });
   }
+
+  handleInputChange(event,note) {
+    var imageName = event.target.files[0].name;
+    
+    
+     var pattern = /image-*/;
+    //  var reader = new FileReader();
+    
+      // if (!imageName.type.match(pattern)) {
+      //  console.error('File is not an image');
+      //  return;
+      // }
+      note.image=imageName;
+
+    //    console.log("i want full path",image);
+    //    let formDataObj = new FormData();
+
+    //     for(let index in note){
+    //       formDataObj.set(index,note[index]);
+    //    }
+    //    formDataObj.set("noteImage",image);
+       
+        this.noteService.addImage(note);
+    
+   
+  }
   createLabel(): void {
     this.noteService.createNewLabel(this.model);
  };
@@ -87,10 +113,9 @@ export class NoteComponent implements OnInit {
   }
 
   openDialog(note) {
-
+      
     this.dialog.open(UpdateComponent, {
       data: note,
-      
       width: '600px',
       height: '150px'
     });
