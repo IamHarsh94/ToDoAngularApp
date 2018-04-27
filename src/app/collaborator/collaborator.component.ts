@@ -33,11 +33,10 @@ export class CollaboratorComponent implements OnInit {
     
     // this.model.noteId = this.data.note.noteId;
      this.model.removeUserMail=userMail;
-    
      this.collaboratorService.addPerson(this.model);
     }
     else{
-     //  this.model.noteId=this.data.note.noteId;
+     // this.model.noteId=this.data.note.noteId;
       this.collaboratorService.addPerson(this.model); 
      }
    

@@ -25,7 +25,7 @@ constructor(private http: HttpClient) { }
 private allLabelSubject = new Subject<any>();
 
 private viewSubject = new Subject<any>();
-
+ 
 toggleView(){
   this.status = !this.status;
   this.viewSubject.next(this.status);

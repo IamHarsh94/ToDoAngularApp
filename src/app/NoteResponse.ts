@@ -6,8 +6,9 @@ export class NoteResponse{
     status : number;
     color:string;
     reminder:Date;
-    labels : Array<LabelObject>
-    collaborators:Array<User>
+    labels : Array<LabelObject>;
+    collaborators:Array<User>;
+    urls:Array<UrlData>;
     collaboratorName:string;
     ownerId:number;
     image :string;
@@ -19,4 +20,10 @@ export class LabelObject {
 export class User {
     fullName : string;
     userEmail : string;
+}
+export class UrlData {
+    nodeId : number;
+    title : string;
+    imageUrl : string;
+    domain : string;
 }

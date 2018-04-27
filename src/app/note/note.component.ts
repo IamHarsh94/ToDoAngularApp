@@ -63,6 +63,7 @@ export class NoteComponent implements OnInit {
   ngOnInit() {
        this.commonService.getService('getNotes').subscribe(res => {
        this.notes = res;
+
        this.commonService.getStatus().subscribe((status)=>{
        this.statusClass = status? "list-view":"grid-view";
       
@@ -73,8 +74,10 @@ export class NoteComponent implements OnInit {
        }
 
        });
+       
       this.getAllLabels('getNotes');
      });
+
   }
 
   handleInputChange(event,note) {
