@@ -12,14 +12,15 @@ import { environment } from "../environments/environment"
 
 @Injectable()
 export class HttputilService {
-  
-  base_url = environment.base_url; 
-  //base_url = "http://localhost:8080/ToDo/";
-  note_url = "http://localhost:8080/ToDo/note/";
-  user_Url="http://localhost:8080/ToDo/user/";
-  private urlpath;
+
+  base_url = environment.base_url;
+  note_url=environment.note_url;
+  user_Url=environment.user_Url;
+  forgotPass=environment.forgotPass;
+  private urlpath;  
   private noteId;
   status:boolean = true;  
+
 constructor(private http: HttpClient) { }
     
 private allLabelSubject = new Subject<any>();
@@ -42,8 +43,6 @@ loadAllLabel(path):void {
   this.allLabelSubject.next(res);
 });
 }
-
-
 getAll(path): Observable<any> {
   this.loadAllLabel(path);
   return this.allLabelSubject.asObservable(); 
@@ -64,9 +63,9 @@ getAll(path): Observable<any> {
 
   //--------------  PUT SERVICE ------------------------
 
-  putService(path, note): Observable<any>{
+  putService(path, data): Observable<any>{
     this.urlpath = this.note_url.concat(path);
-    return this.http.put(this.urlpath, note, this.httpOptions);
+    return this.http.put(this.urlpath,data,this.httpOptions);
   }
 
   //--------------  GET SERVICE -----------------------------
@@ -110,7 +109,13 @@ getService1(path): Observable<any>{
     this.urlpath = this.note_url.concat(path);
     return this.http.put(this.urlpath,data,this.httpOptions);
   }
-  facebooklogin(path):Observable<any>{
-    return this.http.post<any>(path,{ observe: 'response' });
+  addurl(path,urlto):Observable<any>{
+    this.urlpath = this.note_url.concat(path);
+    return this.http.put<any>( this.urlpath,urlto,this.httpOptions);
+  }
+  forgotPassword(path,data):Observable<any>{
+    this.urlpath = this.forgotPass.concat(path);
+    return this.http.put<any>( this.urlpath,data);
+    
   }
 }

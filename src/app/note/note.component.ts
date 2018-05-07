@@ -9,6 +9,8 @@ import { reqLabelDto } from '../reqLabelDto';
 import { CollaboratorComponent } from '../collaborator/collaborator.component';
 import { CurrentUser } from '../CurrentUser';
 import { noteService } from './noteService';
+import { UrlDTO } from '../UrlDTO';
+import { UrlDataRes } from '../UrlDataRes';
 //Decorator
 @Component({
   selector: 'app-note',
@@ -20,28 +22,29 @@ export class NoteComponent implements OnInit {
   LogedUser :CurrentUser;
   showSelected: boolean;
   checked : false;
+  UrlDataResList : Array<UrlDataRes>=[];
   gridListStatus:boolean;
   model: any = {};
   status:any={};
+  UrlDTO:any={};
   statusClass : string=localStorage.getItem('class');
   Datepicker:any={};
   notes: NoteResponse[];
   reqLabelDto:any={};
   labels: Label[];
   userDetails:any={};
+  urlDtoRes:UrlDataRes[];
   trashImg = '/assets/icon/archive.svg';
   pinSvg = '/assets/icon/pin.svg';
   unpinSvg = '/assets/icon/pinblue.svg';
   remenderSvg = '/assets/icon/remender.svg';
   clearSvg = '/assets/icon/clear.svg';
-  
-  //public checked:boolean=false;
  
   constructor(
     private commonService: HttputilService,
     private noteService: noteService ,
     private dialog: MatDialog,
-    private collabdialog:MatDialog
+    private collTabdialog:MatDialog
   ) {}
    
   optionSelect(checked,labelId,noteId):void{
@@ -63,7 +66,7 @@ export class NoteComponent implements OnInit {
   ngOnInit() {
        this.commonService.getService('getNotes').subscribe(res => {
        this.notes = res;
-
+        
        this.commonService.getStatus().subscribe((status)=>{
        this.statusClass = status? "list-view":"grid-view";
       
@@ -74,46 +77,49 @@ export class NoteComponent implements OnInit {
        }
 
        });
-       
       this.getAllLabels('getNotes');
      });
-
   }
+
+  getAllLabels(path):void{
+    this.commonService.getAll(path).subscribe(res=> {
+    this.notes=res;
+    this.notes.forEach(obj=>{
+    this.getData(obj.description,obj.noteId);
+    });
+    });
+  }
+   getData(description,noteId):any{
+     
+     var string = description.replace(/<[^>]+>/gm, '');
+
+     var urlRegEx = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
+
+     if (string.match(urlRegEx)) {
+    
+       var urlslist = string.match(/\bhttps?:\/\/\S+/gi);
+
+       this.UrlDTO.noteId=noteId;
+       this.UrlDTO.urllist=urlslist;
+
+        this.commonService.putService('getdata', this.UrlDTO).subscribe(response => {
+          this.UrlDataResList.push(response);
+        });
+     }
+    
+   }
 
   handleInputChange(event,note) {
     var imageName = event.target.files[0].name;
-    
-    
+    console.log(imageName);
      var pattern = /image-*/;
-    //  var reader = new FileReader();
-    
-      // if (!imageName.type.match(pattern)) {
-      //  console.error('File is not an image');
-      //  return;
-      // }
-      note.image=imageName;
-
-    //    console.log("i want full path",image);
-    //    let formDataObj = new FormData();
-
-    //     for(let index in note){
-    //       formDataObj.set(index,note[index]);
-    //    }
-    //    formDataObj.set("noteImage",image);
-       
-        this.noteService.addImage(note);
-    
-   
+     note.image=imageName;
+     this.noteService.addImage(note); 
   }
   createLabel(): void {
     this.noteService.createNewLabel(this.model);
  };
  
-  getAllLabels(path):void{
-    this.commonService.getAll(path).subscribe(res=> {
-    this.notes=res;
-    });
-  }
 
   openDialog(note) {
       
@@ -125,7 +131,7 @@ export class NoteComponent implements OnInit {
   }
   openCollaborator(note,ownerId) {
 
-     this.collabdialog.open(CollaboratorComponent, {
+     this.collTabdialog.open(CollaboratorComponent, {
        data: {note,ownerId},
 
        width: '600px',
@@ -134,21 +140,15 @@ export class NoteComponent implements OnInit {
   }
 
   /**purpose*/
-  refreshNote(): void {
-    this.commonService.getService('getNotes').subscribe(res => {
-      this.notes = res;
-    });
-  };
+ 
 
-  /**purpse*/
+  /**purpose*/
   createNote(): void {
-    this.commonService.putService('createNote', this.model)
+      this.commonService.putService('createNote', this.model)
       .subscribe(response => {
-        
         console.log("Note Created", response);
-        this.refreshNote();
+        this.getAllLabels('getNotes');
       });
-
   };
 
   updateStatusNote(note,status): void {
@@ -156,7 +156,7 @@ export class NoteComponent implements OnInit {
     note.status = status;
     this.commonService.putService('updateNote', note).subscribe(response => {
       console.log("Archive  response", response);
-      this.refreshNote();
+      this.getAllLabels('getNotes');
     });
   };
 
@@ -190,11 +190,11 @@ export class NoteComponent implements OnInit {
       var dateObj = this.model.reminder;
       var today = new Date(dateObj);
       note.reminder= today;
-      this.refreshNote();
+      this.getAllLabels('getNotes');
     }
        this.commonService.putService('updateNote', note).subscribe(response => {
        console.log("Archive  response", response);
-      this.refreshNote();
+       this.getAllLabels('getNotes');
       });
   }
 
@@ -240,6 +240,12 @@ export class NoteComponent implements OnInit {
     this.commonService.getService1('getLabels').subscribe(res => {
       this.labels = res;
     });
+  }
+
+  deleteService(noteId){
+
+    this.noteService.deleteNote(noteId);
+  
   }
 
 }

@@ -10,19 +10,16 @@ import { Label } from '../Label';
 })
 export class LabelComponent implements OnInit {
   model: any = {};
-  constructor(private commonService: HttputilService,public MatRef:MatDialogRef<LabelComponent>) { }
+  constructor(private commonService: HttputilService,
+    public MatRef:MatDialogRef<LabelComponent>) { }
 
   ngOnInit() {
   }
 
   createLabel(): void {
-
      this.commonService.putService('createLabel', this.model)
       .subscribe(response => {
-        console.log("Label Created", response);
-
-        this.MatRef.close();
-        
+        this.MatRef.close();  
       });
   };
 }

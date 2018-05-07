@@ -12,6 +12,7 @@ export class NoteResponse{
     collaboratorName:string;
     ownerId:number;
     image :string;
+    urlPromise ?: any;
 }
 export class LabelObject {
     labelId : number;

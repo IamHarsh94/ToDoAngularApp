@@ -15,7 +15,9 @@ declare const FB:any;
 @Injectable()
 export class loginService {
 
-  constructor(private http: AuthHttp,private commonService: HttputilService, private router : Router) {
+  constructor(private http: AuthHttp,
+      private commonService: HttputilService,
+      private router : Router) {
    
     (function(d, s, id){
       var js, fjs = d.getElementsByTagName(s)[0];

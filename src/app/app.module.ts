@@ -41,7 +41,8 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, 
   LinkedInLoginProvider  } from 'angularx-social-login';
 import { SocialLoginModule } from 'angularx-social-login';
-
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -85,6 +86,7 @@ export const appRoutes: Routes = [
     ],
 
   },
+  {path:'resetpassword',component:ResetpasswordComponent},
  { path: '**', component: HomeComponent}
 ];
 
@@ -103,7 +105,9 @@ export const appRoutes: Routes = [
     LabelComponent,
     CollaboratorComponent,
     NoteFilterPipe,
-    CommonNoteComponent
+    CommonNoteComponent,
+    ForgetPasswordComponent,
+    ResetpasswordComponent
     
   ],
   imports: [
@@ -137,7 +141,7 @@ export const appRoutes: Routes = [
     MatChipsModule,
     HttpModule
     ],
-  entryComponents:[UpdateComponent,LabelComponent,CollaboratorComponent],
+  entryComponents:[UpdateComponent,LabelComponent,CollaboratorComponent,ForgetPasswordComponent],
   providers: [HttputilService,AuthGuard,LoggedInAuthGuard,loginService,noteService,
     collaboratorService,{ provide: AuthHttp, useFactory: getAuthHttp, deps: [Http] },
     { provide: AuthServiceConfig, useFactory: provideConfig}],

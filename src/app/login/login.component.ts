@@ -3,10 +3,10 @@ import { FormGroup, FormControl, Validators, NgForm, FormGroupDirective } from '
 import { ErrorStateMatcher } from '@angular/material';
 import { loginService } from './loginService';
 import { Router } from '@angular/router';
-
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
+import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
@@ -23,7 +23,10 @@ export class LoginComponent {
 
   model: any = {};
 
-  constructor(private loginService: loginService, private router : Router) { }
+  constructor(
+    private loginService: loginService, 
+    private router : Router,
+    private dialog: MatDialog) { }
 
    userLogin():void{
       this.loginService.login(this.model);
@@ -36,8 +39,14 @@ export class LoginComponent {
   //   });
   //  }
 
+  forgotPassword() {
+      
+    this.dialog.open(ForgetPasswordComponent, {
 
-    
+      width: '600px',
+      height: '170px'
+    });
+  }
 
   emailControl = new FormControl('', [
     Validators.required,

@@ -28,9 +28,24 @@
         <a href="http://localhost:4200/register">New user</a>
       </div>
 
-    </form>
 
+      <!-- <div>
+          <button mat-menu-item [routerLink]="['/home/trash']">
+           <mat-icon>delete</mat-icon> 
+           <span>Trash</span>
+         </button>
+       </div> -->
+
+  </form>
+    
+    <div>
+      <div style="margin-left: 63px;margin-top: 10px;">
+        <button type="submit" mat-raised-button color="primary" (click)="forgotPassword()">Forgot Password</button>
+      </div>
+   </div>
+   
     <div style="margin-left: 63px;margin-top: 10px;">
+
       <button type="submit" mat-raised-button color="primary" (click)="loginWithFb()">Login with facebook</button>
     </div>
 

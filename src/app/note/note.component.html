@@ -8,7 +8,7 @@
 
 <div fxLayoutAlign="center center" *ngIf="show" style="margin-top: 15px;">
   <mat-card style="width: 41%; padding: 5px; ">
-    <div style="font-weight: bold; padding: 10px 5px;" contenteditable='true' data-text='Title' class="editable line-height"
+    <div id="update-description" style="font-weight: bold; padding: 10px 5px;" contenteditable='true' data-text='Title' class="editable line-height"
       name="title" (input)="model.title=$event.target.innerHTML"></div>
     <div style="padding: 12px 5px 15px 5px;" contenteditable='true' data-text='Take a note..' class="editable line-height" name="description"
       (input)="model.description=$event.target.innerHTML"></div>
@@ -86,17 +86,17 @@
     <!-- <nav class="navbar navbar-toggleable-md bg-primary fixed-top"
     [ngClass]="{ 'navbar-transparent': this.isHome }"> -->
 
-    <div *ngFor="let note of notes | noteFilter : { status : 0}"  class={{statusClass}}>
+    <div *ngFor="let note of notes | noteFilter : { status : 0}" class={{statusClass}}>
       <!-- <app-common-note></app-common-note>  -->
-      
-      
+
+
       <mat-card [style.background]="note.color" class="mat-design">
 
-      <div *ngIf="note.image" (click)="openDialog(note)">
-          <img class="image-class" [src]='"/assets/icon/"+note.image'/>
-      </div>
-        
-      <div style="margin-left: 90%;padding:0px 0px 15px 14px" class="images">
+        <div *ngIf="note.image" (click)="openDialog(note)">
+          <img class="image-class" [src]='"/assets/icon/"+note.image' />
+        </div>
+
+        <div style="margin-left: 90%;padding:0px 0px 15px 14px" class="images">
           <img src="{{pinSvg}}" (click)="updateStatusNote(note,3)">
         </div>
 
@@ -106,7 +106,7 @@
           </mat-card-header>
 
           <mat-card-content>
-            <b [innerHTML]="note.description"></b>
+            <b class="editable" [innerHTML]="note.description"></b>
             <b></b>
           </mat-card-content>
         </div>
@@ -297,7 +297,37 @@
 
           </mat-menu>
         </div>
+
+        <!-- <div *ngIf="urlDtoRes!=null">
+          <div *ngFor=" let obj of urlDtoRes">
+            <img [src]="obj.imageUrl"/>
+            <b> {{obj.title}}</b>
+            <div>{{obj.domain}}</div>
+          </div>
+        </div> -->
+        <div *ngIf="UrlDataResList!=null">
+          <div *ngFor=" let object of UrlDataResList">
+            <div *ngFor="let obj of object">
+              <div *ngIf="obj.nodeId==note.noteId">
+                <div fxLayout="row" fxLayoutGap="20px">
+                  <div fxFlex="25">
+                   <img style="margin-left: -24px;
+                   max-width: 54px;
+                   min-width: 54px;
+                   max-height: 68px;
+                   min-height: 68px;" flex [src]="obj.imageUrl" />
+                  </div>
+                  <div>
+                    <div><b>{{obj.title}}</b></div>
+                    <div>{{obj.domain}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </mat-card>
+
     </div>
   </div>
 </div>

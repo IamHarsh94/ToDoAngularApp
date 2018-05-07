@@ -5,5 +5,8 @@
 
 export const environment = {
   production: false,
-  base_url:"http://localhost:8080/ToDo/"
+  base_url:"http://localhost:8080/ToDo/",
+  note_url:"http://localhost:8080/ToDo/note/",
+  user_Url:"http://localhost:8080/ToDo/user/",
+  forgotPass:"http://localhost:8080/ToDo/"
 };
