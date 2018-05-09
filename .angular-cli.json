@@ -53,8 +53,13 @@
       "config": "./karma.conf.js"
     }
   },
+
   "defaults": {
     "styleExt": "css",
     "component": {}
+  },
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "allowJs": true
   }
 }

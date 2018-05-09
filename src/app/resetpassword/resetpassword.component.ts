@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, NgForm, FormGroupDirective } from '
 import { ErrorStateMatcher } from '@angular/material';
 import { HttputilService } from '../httputil.service';
 import { Router } from '@angular/router';
-
+import { environment } from "../../environments/environment";
 @Component({
   selector: 'app-resetpassword',
   templateUrl: './resetpassword.component.html',
@@ -26,7 +26,7 @@ export class ResetpasswordComponent implements OnInit {
       if(!(this.model.passWord==''||this.model.confirmpassword=='')){
           if(this.model.passWord==this.model.confirmpassword){
               var randomUUID=window.location.search.split('=');
-              this.commonService.postService('http://localhost:8080/ToDo/changepassword/'+randomUUID[1],this.model).subscribe(res => {
+              this.commonService.postService(environment.base_url+'changepassword/'+randomUUID[1],this.model).subscribe(res => {
                 console.log(res.body.message);
                 if(res.body.statusCode==200){
                   alert(res.body.message); 

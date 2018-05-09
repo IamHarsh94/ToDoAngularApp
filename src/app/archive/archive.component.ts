@@ -3,6 +3,7 @@ import { HttputilService } from '../httputil.service';
 import { NoteResponse } from '../NoteResponse';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
 import { UpdateComponent } from '../update/update.component';
+import {ArchiveService} from '../archive/archiveService';
 
 @Component({
   selector: 'app-archive',
@@ -11,12 +12,14 @@ import { UpdateComponent } from '../update/update.component';
 })
 export class ArchiveComponent implements OnInit {
 
-  
   model: any = {};
   notes: NoteResponse[];
   unArchiveImg = '/assets/icon/unarchive.svg';
   pinSvg = '/assets/icon/pin.svg';
-  constructor(private commonService:HttputilService,private dialog: MatDialog) { }
+  constructor(
+    private commonService:HttputilService,
+    private dialog: MatDialog,
+    private ArchiveService:ArchiveService) { }
 
   ngOnInit() {
     this.commonService.getService('getNotes').subscribe(res => {
@@ -26,35 +29,20 @@ export class ArchiveComponent implements OnInit {
   }
 
   refreshNote(): void {
-    this.commonService.getService('getNotes').subscribe(res => {
-      this.notes = res;
-    });
+    this.ArchiveService.refreshNote();
   };
 
   unArchiveNote(note): void {
-    console.log("move trash note", note);
-    note.status = 0;
-    this.commonService.putService('updateNote', note).subscribe(response => {
-      console.log("unArchive note", response);
-      this.refreshNote();
-    });
+    this.ArchiveService.unArchiveNote(note);
   };
 
   pinNote(note): void {
-    console.log("move trash note", note);
-    note.status = 3;
-    this.commonService.putService('updateNote', note).subscribe(response => {
-      console.log("unArchive note", response);
-      this.refreshNote();
-    });
+   this.ArchiveService.pinNote(note);
   };
 
   openDialog(note) {
-    console.log(note);
-
     this.dialog.open(UpdateComponent, {
       data: note,
-
       width: '600px',
       height: '150px'
     });

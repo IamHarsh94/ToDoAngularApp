@@ -27,27 +27,6 @@ export class UpdateComponent implements OnInit {
   }
 
   updateNote() {
-    // console.log("before ", document.getElementById('update-description').innerHTML);
-
-    // var str = document.getElementById('update-description').innerHTML;
-    // var string = str.replace(/<[^>]+>/gm, '');
-
-    // var urlRegEx = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
-
-    // if (string.match(urlRegEx)) {
-
-    //   var urlslist = string.match(/\bhttps?:\/\/\S+/gi);
-    //   this.UrlDTO.noteId = this.data.noteId;
-    //   this.UrlDTO.urls=urlslist;
-
-    //   console.log("yaaahoooooo",this.UrlDTO);
-
-    //    this.commonService.putService('getdata', this.UrlDTO)
-    //      .subscribe(response => {
-    //        console.log('expected output mil gya yaahooooo',response);
-    //       this.urlDtoRes=response;
-    //      });
-    // }
      this.commonService.putService('updateNote', this.data)
        .subscribe(response => {
          this.MatRef.close();

@@ -18,7 +18,7 @@ export class collaboratorService {
     private dialog: MatDialog) {}
 
   addPerson(data): void {
-     this.commonService.addcollaborator('addRemovecollaborator', data).subscribe(response => {
+     this.commonService.putService('addRemovecollaborator', data).subscribe(response => {
 
      if (response.status === 200)
       { 

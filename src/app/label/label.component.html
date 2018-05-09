@@ -1,10 +1,34 @@
 <div fxLayout="column" fxLayoutGap="20px">
 
-  <div><b>Edit labels :</b></div>
   <div>
-     <mat-form-field >
-      <input matInput placeholder="Create new label" [(ngModel)]="model.labelTitle">
-     </mat-form-field>
+    <b>Edit labels :</b>
   </div>
-  <div><button type="submit" (click)="createLabel()" mat-raised-button>Done</button></div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Create new label" [(ngModel)]="model.labelTitle">
+    </mat-form-field>
+  </div>
+
+  <!-- <div *ngIf="labels!=null">
+    <div *ngFor="let label of labels">
+      <button mat-menu-item>
+        <span (click)="deleteLabel(label)" ><mat-icon (mouseover)="mouseover()" (mouseleave)="mouseleave()" id="mat-icon">{{simbol}}</mat-icon></span>
+        <span contenteditable="true">{{label.labelTitle}}</span>
+         <span><mat-icon style="margin-left: 70px">edit</mat-icon></span>
+      </button>
+    </div>
+  </div> -->
+  <div *ngIf="labels!=null">
+    <div fxLayout="row" *ngFor="let label of labels" fxLayoutGap="20px" let i=index >
+      
+        <div (click)="deleteLabel(label)" ><mat-icon (mouseover)="mouseover()" (mouseleave)="mouseleave()" id="mat-icon">{{simbol}}</mat-icon></div>
+        <div id="i" (click)="makeContentEditable()" contenteditable="false" fxFlex class="editable">{{label.labelTitle}}</div>
+        <div (click)="makeContentEditable()"><button mat-icon-button style="margin-top:-9px;"><mat-icon>edit</mat-icon></button></div>
+      
+    </div>
+  </div>
+
+  <div>
+    <button type="submit" (click)="createLabel()" mat-raised-button>Done</button>
+  </div>
 </div>

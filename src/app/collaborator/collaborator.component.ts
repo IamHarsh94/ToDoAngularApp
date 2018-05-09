@@ -1,7 +1,7 @@
 import { Component, OnInit,Inject} from '@angular/core';
 import { HttputilService } from '../httputil.service';
 import { CurrentUser } from '../CurrentUser';
-import { collaboratorService } from './collaborators';
+import { collaboratorService } from './collaboratorService';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
 import { NoteResponse } from '../NoteResponse';
 

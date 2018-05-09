@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, NgForm, FormGroupDirective } from '
 import { ErrorStateMatcher } from '@angular/material';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
-import { HttputilService } from '../httputil.service';
+import {ForgotPasswordService} from '../forget-password/forgotPasswordService';
 
 
 @Component({
@@ -14,18 +14,14 @@ import { HttputilService } from '../httputil.service';
 export class ForgetPasswordComponent implements OnInit {
 
   model: any = {};
-  constructor(private commonService: HttputilService) { }
+  constructor(
+    private ForgotPasswordService:ForgotPasswordService) { }
 
   ngOnInit() {
   }
 
   submitEmail():void{
-    console.log(this.model);
-    //document.getElementById('usermail').innerHTML=''; 
-    this.commonService.putService('forgotPassword',this.model).subscribe(response => {
-      console.log("forgot password response :",response);
-    });
-  
+   this.ForgotPasswordService.submitEmail(this.model);
   }
 
 }

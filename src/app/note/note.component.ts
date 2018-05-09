@@ -2,201 +2,93 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { HttputilService } from '../httputil.service';
 import { NoteResponse } from '../NoteResponse';
-import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
-import { UpdateComponent } from '../update/update.component';
 import { Label } from '../Label';
 import { reqLabelDto } from '../reqLabelDto';
 import { CollaboratorComponent } from '../collaborator/collaborator.component';
-import { CurrentUser } from '../CurrentUser';
 import { noteService } from './noteService';
-import { UrlDTO } from '../UrlDTO';
 import { UrlDataRes } from '../UrlDataRes';
-//Decorator
+
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.css']
 })
-/**class used for ....purpose*/
+
 export class NoteComponent implements OnInit {
-  LogedUser :CurrentUser;
-  showSelected: boolean;
-  checked : false;
-  UrlDataResList : Array<UrlDataRes>=[];
-  gridListStatus:boolean;
-  model: any = {};
-  status:any={};
-  UrlDTO:any={};
   statusClass : string=localStorage.getItem('class');
-  Datepicker:any={};
+  model: any = {};
   notes: NoteResponse[];
-  reqLabelDto:any={};
   labels: Label[];
-  userDetails:any={};
-  urlDtoRes:UrlDataRes[];
+  UrlDataResList : Array<UrlDataRes>=[];
   trashImg = '/assets/icon/archive.svg';
   pinSvg = '/assets/icon/pin.svg';
   unpinSvg = '/assets/icon/pinblue.svg';
   remenderSvg = '/assets/icon/remender.svg';
   clearSvg = '/assets/icon/clear.svg';
- 
   constructor(
+    private noteService: noteService,
     private commonService: HttputilService,
-    private noteService: noteService ,
-    private dialog: MatDialog,
-    private collTabdialog:MatDialog
   ) {}
-   
-  optionSelect(checked,labelId,noteId):void{
-    
-      if(checked){
-        this.reqLabelDto.checked=true;
-      }else{
-        this.reqLabelDto.checked=false;
-      }
-      this.reqLabelDto.labelId=labelId;  
-      this.reqLabelDto.noteId=noteId;
-
-      this.commonService.add_remove_label('addRemoveLabel',this.reqLabelDto).subscribe(res => {
-        console.log(res);
-        this.getAllLabels('getNotes');
-      });
-     
-  }
+  
   ngOnInit() {
-       this.commonService.getService('getNotes').subscribe(res => {
-       this.notes = res;
-        
-       this.commonService.getStatus().subscribe((status)=>{
-       this.statusClass = status? "list-view":"grid-view";
-      
-       if(status){   
-        localStorage.setItem('class','list-view');     
-       }else{
-         localStorage.setItem('class','grid-view');
-       }
-
-       });
-      this.getAllLabels('getNotes');
-     });
+    this.noteService.getNotesOninit().subscribe(res => {
+      this.notes=res;
+      this.notes.forEach(obj=>{
+        this.UrlDataResList=this.noteService.getData(obj.description,obj.noteId);
+      });
+    });
+    this.statusClass=this.noteService.getClassStatus();
   }
 
+  optionSelect(checked,labelId,noteId):void{
+    this.noteService.optionSelect(checked,labelId,noteId);
+    this.getAllLabels('getNotes');
+  }
+
+  handleInputChange(event,note) {
+    this.noteService.handleInputChange(event,note);
+  }
   getAllLabels(path):void{
     this.commonService.getAll(path).subscribe(res=> {
     this.notes=res;
-    this.notes.forEach(obj=>{
-    this.getData(obj.description,obj.noteId);
     });
-    });
-  }
-   getData(description,noteId):any{
-     
-     var string = description.replace(/<[^>]+>/gm, '');
-
-     var urlRegEx = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
-
-     if (string.match(urlRegEx)) {
-    
-       var urlslist = string.match(/\bhttps?:\/\/\S+/gi);
-
-       this.UrlDTO.noteId=noteId;
-       this.UrlDTO.urllist=urlslist;
-
-        this.commonService.putService('getdata', this.UrlDTO).subscribe(response => {
-          this.UrlDataResList.push(response);
-        });
-     }
-    
-   }
-
-  handleInputChange(event,note) {
-    var imageName = event.target.files[0].name;
-    console.log(imageName);
-     var pattern = /image-*/;
-     note.image=imageName;
-     this.noteService.addImage(note); 
   }
   createLabel(): void {
     this.noteService.createNewLabel(this.model);
  };
- 
 
   openDialog(note) {
-      
-    this.dialog.open(UpdateComponent, {
-      data: note,
-      width: '600px',
-      height: '150px'
-    });
+    this.noteService.openDialog(note);
   }
+
   openCollaborator(note,ownerId) {
-
-     this.collTabdialog.open(CollaboratorComponent, {
-       data: {note,ownerId},
-
-       width: '600px',
-       height: '250px'
-     });
+    this.noteService.openCollaborator(note,ownerId);
   }
-
-  /**purpose*/
- 
-
-  /**purpose*/
   createNote(): void {
-      this.commonService.putService('createNote', this.model)
-      .subscribe(response => {
-        console.log("Note Created", response);
-        this.getAllLabels('getNotes');
-      });
+    this.noteService.createNote();
   };
 
   updateStatusNote(note,status): void {
-    console.log("move archive note", note,status);
-    note.status = status;
-    this.commonService.putService('updateNote', note).subscribe(response => {
-      console.log("Archive  response", response);
-      this.getAllLabels('getNotes');
-    });
+    this.noteService.updateStatusNote(note,status);
+    this.notes=this.noteService.AutoRefresh('getNotes');
   };
 
   reminderSave(note,day){
-    
-    if(day==='Today'){
-    var today =new Date();
-    today.setHours(20);
-    today.setMinutes(0);
-    today.setMilliseconds(0);
-    note.reminder= today;   
-    }
-    else if(day==='Tomorrow'){
-      var today =new Date();
-      today.setDate(today.getDate()+1);
-    today.setHours(8);
-    today.setMinutes(0);
-    today.setMilliseconds(0);
-    note.reminder= today;
-    }else if(day==='Next week'){
-      
-      var today =new Date();
-      today.setDate(today.getDate()+6);
-      today.setHours(8);
-      today.setMinutes(0);
-      today.setMilliseconds(0);
-      note.reminder= today;  
-    }else if(day==='null'){
-      note.reminder=null;
-    }else{
-      var dateObj = this.model.reminder;
-      var today = new Date(dateObj);
-      note.reminder= today;
-      this.getAllLabels('getNotes');
-    }
-       this.commonService.putService('updateNote', note).subscribe(response => {
-       console.log("Archive  response", response);
-       this.getAllLabels('getNotes');
-      });
+    this.noteService.reminderSave(note,day);
+    this.notes=this.noteService.AutoRefresh('getNotes');
   }
+
+  getLabels(){
+    this.noteService.getLabels().subscribe(res => {
+      this.labels = res;
+    });
+  }
+
+  deleteService(noteId){
+    this.noteService.deleteNote(noteId);
+    this.notes=this.noteService.AutoRefresh('getNotes');
+  }
+
 
   colors = [{
     color: '#f26f75',
@@ -230,22 +122,4 @@ export class NoteComponent implements OnInit {
     path: '/assets/icon/brown.png'
   }
   ];
-
-   convertDate(inputFormat) {
-    function pad(s) { return (s < 10) ? '0' + s : s; }
-    var d = new Date(inputFormat);
-    return [d.getFullYear(),pad(d.getMonth()+1),pad(d.getDate())].join('/');
-  }
-  getLabels(){
-    this.commonService.getService1('getLabels').subscribe(res => {
-      this.labels = res;
-    });
-  }
-
-  deleteService(noteId){
-
-    this.noteService.deleteNote(noteId);
-  
-  }
-
 }

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators ,NgForm,FormGroupDirective} from '@a
 import { HttputilService } from '../httputil.service';
 import { ErrorStateMatcher } from '@angular/material';
 import { Router } from '@angular/router';
-
+import { environment } from "../../environments/environment";
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -24,7 +24,7 @@ export class RegistrationComponent {
   register(): void {
     console.log("sigInForm", this.model);
     
-    this.commonService.postService('http://localhost:8080/ToDo/register', this.model).subscribe(response => {
+    this.commonService.postService(environment.register, this.model).subscribe(response => {
       if (response.status === 200) {
             console.log("registration success");
             this.router.navigate(['/login']);
@@ -36,9 +36,6 @@ export class RegistrationComponent {
       }
     });
   };
-
-
-
   // register(): void {
   //   console.log("sigInForm", this.model);
     

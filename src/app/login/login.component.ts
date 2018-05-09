@@ -19,34 +19,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login.component.css']
 })
 
+
 export class LoginComponent {
-
-  model: any = {};
-
-  constructor(
-    private loginService: loginService, 
-    private router : Router,
-    private dialog: MatDialog) { }
-
-   userLogin():void{
-      this.loginService.login(this.model);
-   };
-    
-  // fbLogin() {
-  //     this.loginService.loginwithFB()
-  //                      .then(() => {
-  //     this.router.navigate(['/home']);
-  //   });
-  //  }
-
-  forgotPassword() {
-      
-    this.dialog.open(ForgetPasswordComponent, {
-
-      width: '600px',
-      height: '170px'
-    });
-  }
 
   emailControl = new FormControl('', [
     Validators.required,
@@ -58,5 +32,24 @@ export class LoginComponent {
     Validators.pattern('.{4,12}'),
   ]);
   matcher = new MyErrorStateMatcher();
+
+  model: any = {}; // remove model and use form
+
+  constructor(
+    private loginService: loginService, 
+    private router : Router,
+    private dialog: MatDialog) { }
+
+   userLogin():void{
+      this.loginService.login(this.model);
+   };
+
+  forgotPassword() {
+    this.dialog.open(ForgetPasswordComponent, {
+
+      width: '600px',
+      height: '170px'
+    });
+  }
 
 }
