@@ -2,53 +2,44 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttputilService } from '../httputil.service';
 import { NoteResponse } from '../NoteResponse';
-import { Label } from '../Label';
-import { CurrentUser } from '../CurrentUser';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
 import { LabelComponent } from '../label/label.component';
+import { HomeService } from './homeService';
+import { Label } from '../Label';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent{
-public CurrentUser;
-labels: Label[];
-  constructor( private commonService: HttputilService, private router : Router, private dialog: MatDialog) { }
-  
+
+export class HomeComponent {
+  public CurrentUser;
+  labels: Label[];
+  constructor(
+    private HomeService: HomeService,
+    private commonService: HttputilService) { }
+
   ngOnInit() {
-    this.commonService.getService1('getLabels').subscribe(res => {
-    this.labels = res;
+    this.HomeService.getLabels().subscribe(res => {
+      this.labels = res;
+    });
+    this.labels = this.HomeService.loadLabels().subscribe(res => {
+      this.labels = res;
     });
   }
 
-  getLogedUser():void{
-    this.commonService.getUser('getUser').subscribe(res => {
-     this.CurrentUser= res;
-    });
+  getLogedUser() {
+    this.HomeService.getLogedUser();
   }
-  
-  signOut() : void{
-    
-    localStorage.removeItem('Authorization');
-    this.router.navigate(['/login']);
+
+  signOut(): void {
+    this.HomeService.signOut();
   }
 
   openLabelDialog() {
-    this.dialog.open(LabelComponent, {
-      
-      width: '400px',
-      height: '210px'
-    });
-    // this.refreshNote();
+    this.HomeService.openLabelDialog();
   }
-  changeCSS(){
-    this.commonService.toggleView();
+  changeCSS() {
+    this.HomeService.changeCSS();
   }
-  // refreshNote(): void {
-  //   this.commonService.getService1('getLabels').subscribe(res => {
-  //     this.labels = res;
-  //   });
-  // };
-  
 }

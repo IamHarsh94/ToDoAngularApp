@@ -35,7 +35,7 @@ import { CollaboratorComponent } from './collaborator/collaborator.component';
 import { NoteFilterPipe } from './note-filter.pipe';
 import {loginService} from './login/loginService';
 import {noteService} from './note/noteService';
-import {collaboratorService} from './collaborator/collaborators';
+import {collaboratorService} from './collaborator/collaboratorService';
 import { CommonNoteComponent } from './common-note/common-note.component';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, 
@@ -43,7 +43,11 @@ import { AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider,
 import { SocialLoginModule } from 'angularx-social-login';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-
+import {AuthorisationToken} from "../app/AuthorisationToken";
+import {LabelService} from './label/labelService';
+import {ArchiveService} from './archive/archiveService';
+import {ForgotPasswordService} from './forget-password/forgotPasswordService';
+import {HomeService} from './home/homeService';
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
     headerName: 'x-auth-token',
@@ -60,12 +64,9 @@ const config = new AuthServiceConfig([
     provider: new FacebookLoginProvider('216332969128183')
   }
 ]);
-
-
   export function provideConfig() {
   return config;
 }
-
 
 // import{MatFormsModule,MatFormFieldModule,MatInputModule} from '@angular/material';
 // import{FormsModule} from '@angular/forms';
@@ -142,8 +143,9 @@ export const appRoutes: Routes = [
     HttpModule
     ],
   entryComponents:[UpdateComponent,LabelComponent,CollaboratorComponent,ForgetPasswordComponent],
-  providers: [HttputilService,AuthGuard,LoggedInAuthGuard,loginService,noteService,
-    collaboratorService,{ provide: AuthHttp, useFactory: getAuthHttp, deps: [Http] },
+  providers: [HttputilService,AuthGuard,LoggedInAuthGuard,loginService,noteService,AuthorisationToken,
+    ForgotPasswordService,ArchiveService, LabelService, collaboratorService,{ provide: AuthHttp, useFactory: getAuthHttp, deps: [Http] },
+    HomeService,
     { provide: AuthServiceConfig, useFactory: provideConfig}],
   bootstrap: [AppComponent]
 })
