@@ -57,7 +57,6 @@ export class loginService {
      if (response.body.statusCode === 200) 
      {
        localStorage.setItem('Authorization', response.headers.get("Authorization"));
-       location.reload();
        this.router.navigate(['/home/note']);
         
        } else if (response.body.statusCode == 400) {
