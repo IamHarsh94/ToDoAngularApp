@@ -38,6 +38,7 @@ export class NoteComponent implements OnInit {
       });
     });
     this.statusClass=this.noteService.getClassStatus();
+    this.getAllLabels('getNotes');
   }
 
   optionSelect(checked,labelId,noteId):void{
@@ -65,17 +66,27 @@ export class NoteComponent implements OnInit {
     this.noteService.openCollaborator(note,ownerId);
   }
   createNote(): void {
-    this.noteService.createNote();
+    this.noteService.createNote(this.model).subscribe(response => {
+      document.getElementById('note-title').innerHTML = '';
+      document.getElementById('note-description').innerHTML = '';
+      this.AutoReload();    
+    });;
   };
 
   updateStatusNote(note,status): void {
-    this.noteService.updateStatusNote(note,status);
-    this.notes=this.noteService.AutoRefresh('getNotes');
+    this.noteService.updateStatusNote(note,status).subscribe(response => {
+      this.AutoReload();    
+    });
   };
-
+  AutoReload(): void {
+    this.noteService.refreshNote().subscribe(res => {
+      this.notes = res;
+    });
+  }
   reminderSave(note,day){
-    this.noteService.reminderSave(note,day);
-    this.notes=this.noteService.AutoRefresh('getNotes');
+    this.noteService.reminderSave(note,day).subscribe(response => {
+      this.AutoReload();
+     });
   }
 
   getLabels(){
@@ -88,7 +99,6 @@ export class NoteComponent implements OnInit {
     this.noteService.deleteNote(noteId);
     this.notes=this.noteService.AutoRefresh('getNotes');
   }
-
 
   colors = [{
     color: '#f26f75',

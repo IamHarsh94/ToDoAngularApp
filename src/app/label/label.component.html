@@ -9,22 +9,27 @@
     </mat-form-field>
   </div>
 
-  <!-- <div *ngIf="labels!=null">
-    <div *ngFor="let label of labels">
-      <button mat-menu-item>
-        <span (click)="deleteLabel(label)" ><mat-icon (mouseover)="mouseover()" (mouseleave)="mouseleave()" id="mat-icon">{{simbol}}</mat-icon></span>
-        <span contenteditable="true">{{label.labelTitle}}</span>
-         <span><mat-icon style="margin-left: 70px">edit</mat-icon></span>
-      </button>
-    </div>
-  </div> -->
   <div *ngIf="labels!=null">
-    <div fxLayout="row" *ngFor="let label of labels" fxLayoutGap="20px" let i=index >
+    <div fxLayout="row" *ngFor="let label of labels;let i = index" fxLayoutGap="20px">
       
-        <div (click)="deleteLabel(label)" ><mat-icon (mouseover)="mouseover()" (mouseleave)="mouseleave()" id="mat-icon">{{simbol}}</mat-icon></div>
-        <div id="i" (click)="makeContentEditable()" contenteditable="false" fxFlex class="editable">{{label.labelTitle}}</div>
-        <div (click)="makeContentEditable()"><button mat-icon-button style="margin-top:-9px;"><mat-icon>edit</mat-icon></button></div>
-      
+        <div (click)="deleteLabel(label)">
+          <button mat-icon-button>
+            <mat-icon (mouseover)="mouseover()" (mouseleave)="mouseleave()" id="mat-icon">{{simbol}}</mat-icon>
+          </button>
+        </div>
+        
+         <!-- <div contenteditable="true" name="labelTitle"  class="editable" [(ngModel)]="model.labelTitle" [innerHTML]="label.labelTitle">
+          </div> -->
+          <div fxFlex="70">
+              <input contenteditable="true" matInput [(ngModel)]="label.labelTitle">
+          </div>
+          
+        <div>
+          <button mat-icon-button style="margin-top:-7px;" (click)="updateLabel(label)">
+            <mat-icon>done</mat-icon>
+          </button>
+        </div>
+
     </div>
   </div>
 

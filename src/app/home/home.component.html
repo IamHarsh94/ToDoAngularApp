@@ -1,78 +1,76 @@
 <div style="height: 100vh;margin-top: -8px;">
 
-  <mat-toolbar style="background : rgb(211, 82, 228);position: sticky;">
-    <div fxLayout="row" fxLayoutGap="280%">
-    <div fxLayout="row">
-    <div>
-      <button mat-icon-button (click)="sidenav.toggle()" href="#">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
+  <mat-toolbar appColorTool style="background : hsl(293, 94%, 65%);position: sticky;">
+    <div fxLayout="row"  style="width: inherit;">
 
-    <div>
-      <span>My ToDo App</span>
-    </div>
-
-    <div>
-      <button mat-icon-button (click)="refresh()">
-        <mat-icon>refresh</mat-icon>
-      </button>
-    </div>
-
-    </div>
-
-    <div fxLayout="row"  fxLayoutGap="20px">
-      <div>
-          <button mat-icon-button>
-           <mat-icon style="margin-top: 10px;" (click)="changeCSS()">view_list</mat-icon>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div>
+          <button mat-icon-button (click)="sidenav.toggle()" href="#">
+            <mat-icon>menu</mat-icon>
           </button>
-      </div>    
-    <!-- <div>
-        <mat-icon style="margin-top: 10px;" (click)="changeCSS()">dashboard</mat-icon>
-    </div> -->
-    <div>
-      <button type="submit" mat-menu-item [matMenuTriggerFor]="login" (click)="getLogedUser()">
-
-        <div mat-card-avatar class="example-header-image"></div>
-
-      </button>
-    </div>
- </div>
-    <mat-menu #login="matMenu">
-      <div fxLayout="column" fxLayoutGap="20px">
-        <div fxLayout="row" fxLayoutGap="30px">
-          <div>
-
-            <div mat-card-avatar class="example-header-image"></div>
-            
-          </div>
-
-          <div>
-            <!-- <p>{{CurrentUser.fullName}}</p>
-             <p>{{user.userEmail}}</p> -->
-            <button mat-raised-button color="primary">My Account</button>
-          </div>
         </div>
 
-        <div fxLayout="row" fxLayoutGap="20px" style="background-color: whitesmoke;height: 74px;margin-left: 21px;">
-          <div>
-
-            <div mat-card-avatar class="example-header-image"></div>
-
-          </div>
+        <div>
+          <span>My ToDo App</span>
         </div>
-        <div fxLayout="row" fxLayoutGap="70px" class="rowDesign">
-          <div>
-            <button mat-raised-button color="primary">Add Account</button>
-          </div>
-          <div>
-            <button type="submit" mat-raised-button color="primary" (click)="signOut()">Sign out</button>
-          </div>
+        <div>
+          <button mat-icon-button (click)="refresh()">
+            <mat-icon>refresh</mat-icon>
+          </button>
         </div>
       </div>
-    </mat-menu>
 
-</div>
+      <div style="margin-left: 83px;">
+        <input style="width: 348%;height: 40px;"type="text" placeholder="Search.." name="search">
+      </div>
+
+
+      <div fxLayout="row" style="margin-left: 51%;">
+          <button mat-icon-button>
+            <mat-icon style="margin-top: 10px;" (click)="changeCSS()">view_list</mat-icon>
+          </button>
+          
+          <button type="submit" mat-menu-item [matMenuTriggerFor]="login" (click)="getLogedUser()">
+            <div mat-card-avatar class="example-header-image"></div>
+          </button>
+
+      </div>
+      
+      <mat-menu #login="matMenu">
+        <div fxLayout="column" fxLayoutGap="20px">
+          <div fxLayout="row" fxLayoutGap="30px">
+            <div>
+
+              <div mat-card-avatar class="example-header-image"></div>
+
+            </div>
+
+            <div>
+              <!-- <p>{{CurrentUser.fullName}}</p>
+             <p>{{user.userEmail}}</p> -->
+              <button mat-raised-button color="primary">My Account</button>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="20px" style="background-color: whitesmoke;height: 74px;margin-left: 21px;">
+            <div>
+
+              <div mat-card-avatar class="example-header-image"></div>
+
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="70px" class="rowDesign">
+            <div>
+              <button mat-raised-button color="primary">Add Account</button>
+            </div>
+            <div>
+              <button type="submit" mat-raised-button color="primary" (click)="signOut()">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </mat-menu>
+
+    </div>
   </mat-toolbar>
 
 
@@ -85,58 +83,62 @@
       <div fxLayout="column">
 
         <div>
-            <button mat-menu-item [routerLink]="['/home/note']">
-              <mat-icon>lightbulb_outline</mat-icon>
-              <span>Note</span>
-            </button>
+          <button mat-menu-item [routerLink]="['/home/note']">
+            <mat-icon>lightbulb_outline</mat-icon>
+            <span>Note</span>
+          </button>
         </div>
 
         <div>
-            <button mat-menu-item [routerLink]="['/home/Reminders']">
-              <mat-icon><img src="/assets/icon/remender.svg"></mat-icon>
-              <span>Reminder</span>
-            </button>
+          <button mat-menu-item [routerLink]="['/home/Reminders']">
+            <mat-icon>
+              <img src="/assets/icon/remender.svg">
+            </mat-icon>
+            <span>Reminder</span>
+          </button>
         </div>
 
         <div>
-           <button mat-menu-item [routerLink]="['/home/trash']">
-            <mat-icon>delete</mat-icon> 
+          <button mat-menu-item [routerLink]="['/home/trash']">
+            <mat-icon>delete</mat-icon>
             <span>Trash</span>
           </button>
         </div>
 
         <div>
-            <button mat-menu-item [routerLink]="['/home/archive']">
-              <mat-icon>archive</mat-icon> 
-              <span>Archive</span>
-            </button>
+          <button mat-menu-item [routerLink]="['/home/archive']">
+            <mat-icon>archive</mat-icon>
+            <span>Archive</span>
+          </button>
         </div>
 
         <div>
           <button mat-menu-item>
             <span>Labels</span>
           </button>
-          
-          <button mat-menu-item  (click)="openLabelDialog()">
-              <span>Edit</span>
+
+          <button mat-menu-item (click)="openLabelDialog()">
+            <span>Edit</span>
           </button>
         </div>
 
-        <div *ngFor="let label of labels">
-         <div>
-            <button mat-menu-item>
+        <div *ngIf="labels!=null">
+          <div *ngFor="let label of labels">
+            <div>
+              <button mat-menu-item>
                 <mat-icon>label</mat-icon>
                 <span>{{label.labelTitle}}</span>
-            </button>
-         </div>
-         </div> 
-        
-         <div>
-          <button mat-menu-item  (click)="openLabelDialog()">
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button mat-menu-item (click)="openLabelDialog()">
             <mat-icon>add</mat-icon>
             <span>Create new lable</span>
           </button>
-         </div>
+        </div>
 
       </div>
     </mat-sidenav>

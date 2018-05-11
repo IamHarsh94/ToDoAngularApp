@@ -21,18 +21,17 @@ export class ArchiveService {
 
       public UrlDTO :UrlDTO;
   
-      refreshNote(): void {
-        this.commonService.getService('getNotes').subscribe(res => {
-          this.notes = res;
-        });
-      };
-    
-      unArchiveNote(note): void {
+      // refreshNote(): void {
+      //   this.commonService.getService('getNotes').subscribe(res => {
+      //     this.notes = res;
+      //   });
+      // };
+      refreshNote(): any {
+        return this.commonService.getAll('getNotes');
+      }
+      unArchiveNote(note): any {
         note.status = 0;
-        this.commonService.putService('updateNote', note).subscribe(response => {
-          console.log("unArchive note", response);
-          this.refreshNote();
-        });
+        return this.commonService.putService('updateNote', note);
       };
     
       pinNote(note): void {

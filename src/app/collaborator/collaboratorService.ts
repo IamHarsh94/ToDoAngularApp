@@ -8,18 +8,21 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { Headers } from '@angular/http/src/headers';
 import { Subject } from 'rxjs/Subject';
-import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from "@angular/material";
+import { MatDialog, MatDialogConfig} from "@angular/material";
 import {User}from '../collaboratorRes';
+import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
+import {CollaboratorComponent} from '../collaborator/collaborator.component';
 @Injectable()
 export class collaboratorService {
  user : User;
 
-  constructor(private commonService: HttputilService, 
+  constructor(
+    private commonService: HttputilService, 
     private dialog: MatDialog) {}
 
   addPerson(data): void {
      this.commonService.putService('addRemovecollaborator', data).subscribe(response => {
-
+      this.commonService.AutoLoadLabels('getNotes');
      if (response.status === 200)
       { 
         alert(response.message);
@@ -37,7 +40,9 @@ export class collaboratorService {
      });
  };
 
-
+ loadLabels():any{
+  return this.commonService.getAutoLoadLabels();
+}
 // private allLabelSubject = new Subject<any>();
 
 // httpOptions = {

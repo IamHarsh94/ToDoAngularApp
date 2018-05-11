@@ -18,7 +18,6 @@ export class TrashComponent implements OnInit {
    this.notes = res;
   });
   }
-
 refreshNote(): void {
     this.commonService.getService('getNotes').subscribe(res => {
     this.notes = res;
@@ -28,16 +27,13 @@ refreshNote(): void {
 deleteForever(noteId): void{
     console.log("noteId",noteId);
       this.commonService.deleteService('delete',noteId).subscribe(response=>{
-        console.log("deleteNote  response",response);
          this.refreshNote();
     });
 };
   
 restore(note): void{
-    console.log("restore from trash note",note);
     note.status=0;
       this.commonService.putService('updateNote',note).subscribe(response=>{
-        console.log("deleteNote  response",response);
          this.refreshNote();
     });
 };

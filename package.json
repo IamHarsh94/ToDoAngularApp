@@ -30,6 +30,7 @@
     "angularx-social-login": "^1.1.8",
     "core-js": "^2.4.1",
     "ng-click-outside": "^3.2.0",
+    "ng-mat-search-bar": "^1.0.0-rc.1",
     "ng-pick-datetime": "^5.2.3",
     "ng2-toastr": "^4.1.2",
     "ng4-click-outside": "^1.0.1",

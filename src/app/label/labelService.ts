@@ -22,7 +22,14 @@ export class LabelService {
      .subscribe(response => {
       this.commonService.AutoLoadLabels('getLabels');
      });
- };
+  };
+
+  updatelabel(data):void{
+    this.commonService.putService('updateLabel', data)
+    .subscribe(response => {
+     this.commonService.AutoLoadLabels('getLabels');
+    });
+  }
 
   getLabels():any{
    return this.commonService.getService1('getLabels');

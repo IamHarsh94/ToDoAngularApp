@@ -12,7 +12,7 @@ import { NoteResponse } from '../NoteResponse';
   styleUrls: ['./collaborator.component.css']
 })
 export class CollaboratorComponent implements OnInit {
-
+  notes: NoteResponse[];
   constructor(
     @Inject(MAT_DIALOG_DATA)  public data: NoteResponse,
     private commonService: HttputilService,
@@ -20,24 +20,33 @@ export class CollaboratorComponent implements OnInit {
     public MatRef:MatDialogRef<CollaboratorComponent>
   ) { }
   
-  public CurrentUser;
+  public CurrentUser :CurrentUser;
   model: any = {};
   ngOnInit() {
           this.commonService.getUser('getUser/'+this.data.ownerId).subscribe(res => {
           this.CurrentUser= res;
          });
+        
   }
-
+  loadLabels(){
+    this.notes = this.commonService.getAll('getNotes').subscribe(res => {
+     this.notes = res;
+    });
+ }
   add_remove_collaborator(userMail) : void {
     if(userMail!='null'){
     
-    // this.model.noteId = this.data.note.noteId;
+    this.model.noteId = this.data.note.noteId;
      this.model.removeUserMail=userMail;
      this.collaboratorService.addPerson(this.model);
+     this.loadLabels();
+     this.MatRef.close();
     }
     else{
-     // this.model.noteId=this.data.note.noteId;
-      this.collaboratorService.addPerson(this.model); 
+      this.model.noteId=this.data.note.noteId;
+      this.collaboratorService.addPerson(this.model);
+      this.loadLabels(); 
+      this.MatRef.close();
      }
    
   }

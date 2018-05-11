@@ -50,15 +50,7 @@ getStatus(){
   return this.viewSubject.asObservable();
 }
 
-// getLabels(path):any{
-//   this.urlpath = this.note_url.concat(path);
-//   this.CreateToken();
-//   this.http.get<any>(this.urlpath,this.httpOptions).toPromise().then((res)=>{
-//   this.allLabelSubject.next(res);
-//   });
-//  }
-
-loadAllLabel(path):void {
+loadAll(path):void {
   this.urlpath = this.note_url.concat(path);
   this.CreateToken();
   this.http.get<any>(this.urlpath,this.httpOptions).toPromise().then((res)=>{
@@ -67,7 +59,7 @@ loadAllLabel(path):void {
 }
 
 getAll(path):any {
-  this.loadAllLabel(path);
+  this.loadAll(path);
   return this.allLabelSubject.asObservable(); 
 }
 

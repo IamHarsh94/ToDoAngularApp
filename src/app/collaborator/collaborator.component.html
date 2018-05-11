@@ -4,14 +4,13 @@
 
         <div mat-card-avatar class="example-header-image"></div>
         <div fxLayout="column">
-            <div>{{CurrentUser.fullName}}
+            <div [innerHTML]="CurrentUser.fullName">
                 <b>(Owner)</b>
             </div>
-            <div>{{CurrentUser.userEmail}}</div>
+            <div [innerHTML]="CurrentUser.userEmail"></div>
         </div>
 
     </div>
-
 
     <div *ngIf="data.note.collaborators!=null" fxLayout="column" fxLayoutGap="10px">
         <div *ngFor="let collaborator of data.note.collaborators">

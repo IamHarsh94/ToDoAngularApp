@@ -24,16 +24,22 @@ export class ArchiveComponent implements OnInit {
   ngOnInit() {
     this.commonService.getService('getNotes').subscribe(res => {
       this.notes = res;
-      console.log('get all notes check here:', res);
     });
   }
-
-  refreshNote(): void {
-    this.ArchiveService.refreshNote();
-  };
+  AutoReload(): void {
+    this.ArchiveService.refreshNote().subscribe(res => {
+      this.notes = res;
+    });
+  }
+  // refreshNote(): void {
+  //   this.ArchiveService.refreshNote();
+  // };
 
   unArchiveNote(note): void {
-    this.ArchiveService.unArchiveNote(note);
+    this.ArchiveService.unArchiveNote(note).subscribe(response => {
+      this.AutoReload();
+    });;
+   
   };
 
   pinNote(note): void {

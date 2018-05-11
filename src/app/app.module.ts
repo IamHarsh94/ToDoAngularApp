@@ -48,6 +48,10 @@ import {LabelService} from './label/labelService';
 import {ArchiveService} from './archive/archiveService';
 import {ForgotPasswordService} from './forget-password/forgotPasswordService';
 import {HomeService} from './home/homeService';
+import { ColorToolDirective } from './color-tool.directive';
+import { NgMatSearchBarModule } from 'ng-mat-search-bar';
+
+
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
     headerName: 'x-auth-token',
@@ -108,7 +112,8 @@ export const appRoutes: Routes = [
     NoteFilterPipe,
     CommonNoteComponent,
     ForgetPasswordComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    ColorToolDirective
     
   ],
   imports: [
@@ -140,7 +145,8 @@ export const appRoutes: Routes = [
     DropdownModule,
     MatCheckboxModule,
     MatChipsModule,
-    HttpModule
+    HttpModule,
+    NgMatSearchBarModule
     ],
   entryComponents:[UpdateComponent,LabelComponent,CollaboratorComponent,ForgetPasswordComponent],
   providers: [HttputilService,AuthGuard,LoggedInAuthGuard,loginService,noteService,AuthorisationToken,

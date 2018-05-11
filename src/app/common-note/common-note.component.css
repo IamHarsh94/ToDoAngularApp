@@ -1,4 +1,52 @@
-.mat-div{
-    margin-top: 15px;
 
+[contentEditable=true]:empty:before{
+  content:attr(data-text)
+}
+.editable {
+word-wrap: break-word;
+white-space: pre-wrap;
+outline: none;
+line-height: 20px; 
+} 
+.example-card {
+  max-width: 400px;
+}
+.full-width {
+  width: 100%;
+}
+.line-height{
+  line-height: 20px;
+}
+.class-container{
+  margin-top: 25px;
+}
+.list-view{
+  width: 69%;
+  margin-top: 15px;
+}
+.grid-view{
+  margin-top: 15px;
+}
+.images:hover {
+	opacity: 1.5;
+  cursor : pointer
+}
+.images {
+  opacity: 0.5;
+  padding: 4px 12px 0px 0px
+}
+.label-design{
+  width: 200px;
+  top: -28px;
+  margin-left: 503px;
+}
+.mat-design{
+  max-width: 201px;
+  margin-top: 15px;
+}
+.image-class{
+  margin-left: -24px;
+  margin-top: -24px;
+  width: 249px;
+  max-height: 194px;
 }

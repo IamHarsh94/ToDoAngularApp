@@ -23,9 +23,12 @@ export class HomeComponent {
     this.HomeService.getLabels().subscribe(res => {
       this.labels = res;
     });
-    this.labels = this.HomeService.loadLabels().subscribe(res => {
+    this.loadLabels();
+  }
+  loadLabels(){
+     this.labels = this.HomeService.loadLabels().subscribe(res => {
       this.labels = res;
-    });
+     });
   }
 
   getLogedUser() {
