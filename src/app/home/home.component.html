@@ -19,10 +19,13 @@
           </button>
         </div>
       </div>
-
-      <div style="margin-left: 83px;">
-        <input style="width: 348%;height: 40px;"type="text" placeholder="Search.." name="search">
+      
+      <form [formGroup]="homeForm">
+       <div style="margin-left: 83px;">
+        <input style="width: 348%;height: 40px;"type="text" placeholder="Search.." name="search"  [formControl]="inputFormControl">
       </div>
+     </form> 
+      
 
 
       <div fxLayout="row" style="margin-left: 51%;">

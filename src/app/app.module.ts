@@ -50,6 +50,8 @@ import {ForgotPasswordService} from './forget-password/forgotPasswordService';
 import {HomeService} from './home/homeService';
 import { ColorToolDirective } from './color-tool.directive';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
+import { SearchFilterPipe } from './search-note.pipe';
+
 
 
 export function getAuthHttp(http: Http) {
@@ -113,7 +115,8 @@ export const appRoutes: Routes = [
     CommonNoteComponent,
     ForgetPasswordComponent,
     ResetpasswordComponent,
-    ColorToolDirective
+    ColorToolDirective,
+    SearchFilterPipe
     
   ],
   imports: [

@@ -17,6 +17,7 @@ import { UrlDataRes } from '../UrlDataRes';
 export class NoteComponent implements OnInit {
   statusClass : string=localStorage.getItem('class');
   model: any = {};
+ public searchText: string;
   notes: NoteResponse[];
   labels: Label[];
   UrlDataResList : Array<UrlDataRes>=[];
@@ -28,7 +29,13 @@ export class NoteComponent implements OnInit {
   constructor(
     private noteService: noteService,
     private commonService: HttputilService,
-  ) {}
+  ) {
+    commonService.searchObservable.subscribe(
+      formData => {
+       this.searchText = formData;
+       console.log('search ka data ', this.searchText);
+    });
+  }
   
   ngOnInit() {
     this.noteService.getNotesOninit().subscribe(res => {

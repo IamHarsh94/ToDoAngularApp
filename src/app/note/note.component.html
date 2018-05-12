@@ -87,7 +87,7 @@
 
 <div class="class-container" fxLayoutAlign="center center">
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="900px" fxLayoutGap="20px">
-    <div *ngFor="let note of notes | noteFilter : { status : 0}" class={{statusClass}}>
+    <div *ngFor="let note of notes | searchFilter : searchText  | noteFilter : { status : 0}" class={{statusClass}}>
       <app-common-note [note]="note"></app-common-note>
     </div>
   </div>
